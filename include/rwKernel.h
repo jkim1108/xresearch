@@ -15,6 +15,9 @@ using namespace Eigen;
 using namespace std;
 
 class rwKernel : public vtKernel
+/*
+    Class for the random walk kernel computation
+*/
 {
     public:
         rwKernel(string ipath);

@@ -15,16 +15,22 @@ using namespace std;
 comKernel::comKernel(string ipath) : vtKernel(ipath) {};
 
 double comKernel::sentenceKernel(Graph * graph1, Graph * graph2)
+/*
+    Laplacian kernel from the distance of two centre of masses
+*/
 {
-    auto vector1 = this->_centre_of_mass(graph1);
-    auto vector2 = this->_centre_of_mass(graph2);
+    auto vector1 = this->_centreOfMass(graph1);
+    auto vector2 = this->_centreOfMass(graph2);
 
     auto diff = vector1 - vector2;
 
     return exp(-.1 * diff.norm());
 };
 
-VectorXd comKernel::_centre_of_mass(Graph * graph)
+VectorXd comKernel::_centreOfMass(Graph * graph)
+/*
+    Outputs the center of mass of the given graph ignoring words without embeddings
+*/
 {
     VectorXd res(300);
     int n = 0;

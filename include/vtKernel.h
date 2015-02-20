@@ -14,7 +14,7 @@ using namespace Eigen;
 
 class vtKernel{
     /*
-        Depedency Tree Model
+        Wrapper for the kernels using the dependency trees
     */
 
     public :

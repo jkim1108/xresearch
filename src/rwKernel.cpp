@@ -10,6 +10,9 @@ using namespace Eigen;
 using namespace std;
 
 rwKernel::rwKernel(string ipath) : vtKernel(ipath)
+/*
+    Set the sentiment basis vector
+*/
 {
     _sent_vector = _embedding["good"] - _embedding["bad"];
 }

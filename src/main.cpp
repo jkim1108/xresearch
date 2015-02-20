@@ -28,8 +28,9 @@ map <string, int> MID_POINTS
 
 int main()
 {
-    int n = 3000;
+    int n = 300;
     std::vector<string> sets;
+    string dataset = "sentiment";
     cout << dataset << endl;
 
     string ipath = PATH + "data/" + dataset + "/";
