@@ -1,6 +1,8 @@
+#include "vtKernel.h"
 #include "main.h"
-#include "rwKernel.h"
-#include "comKernel.h"
+#include "pstKernel.h"
+#include "stKernel.h"
+#include "depTree.h"
 
 #include <iostream>
 #include <algorithm>
@@ -28,7 +30,7 @@ map <string, int> MID_POINTS
 
 int main()
 {
-    int n = 300;
+    int n = 2000;
     std::vector<string> sets;
     string dataset = "sentiment";
     cout << dataset << endl;
@@ -36,8 +38,9 @@ int main()
     string ipath = PATH + "data/" + dataset + "/";
     string opath = PATH + dataset + "_kernel_matrix.csv";
 
-    rwKernel model(ipath);
+    pstKernel model(ipath, 0.33);
     auto graphs = loadGraphs(ipath);
+    //auto dts = loadDepTree(graphs);
 
     std::vector<int> indexset(n);
     int mid_point = MID_POINTS[dataset];

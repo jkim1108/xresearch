@@ -8,6 +8,7 @@
 #include <Eigen/Dense>
 #include <Eigen/SparseCore>
 #include <unordered_map>
+#include <map>
 
 using namespace std;
 using namespace Eigen;
@@ -26,13 +27,13 @@ struct Graph
 // Utility functions
 pair <int, int> vectorToPair(std::vector<int> input);
 double factorial(int n);
-double diffusionKernel(SparseMatrix <float> & adj_matrix, int n);
+double diffusionKernel(SparseMatrix <float>& adj_matrix, int n);
 
 // Functions dealing with IO's
 std::vector<std::vector<Graph*>> load_doc_graphs(std::vector<Graph*> graphs);
 std::vector<Graph*> loadGraphs(string path);
 unordered_map <string, VectorXd> loadEmbedding(string path);
-void writeToCsv(matrix<double> & kernel_matrix, string path);
+void writeToCsv(matrix<double>& kernel_matrix, string path);
 
 
 #endif //MAIN_H

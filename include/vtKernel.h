@@ -4,7 +4,6 @@
 #include "main.h"
 
 #include <iostream>
-
 #include <Eigen/Dense>
 #include <Eigen/SparseCore>
 #include <unordered_map>
@@ -20,13 +19,15 @@ class vtKernel{
     public :
 
         vtKernel(string ipath);
-        virtual double sentenceKernel(Graph * graph1, Graph * graph2)=0;
-        double doc_kernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2);
+        virtual double sentenceKernel(Graph* graph1, Graph* graph2)=0;
+        double docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2);
 
         //~vtKernel();
 
     protected :
 
+        double _lexicalKernel(string& word1, string& word2);
+        double _deltaKernel(string& word1, string& word2);
         unordered_map <string, VectorXd> _embedding;
 
 };

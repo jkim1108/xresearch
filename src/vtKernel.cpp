@@ -30,7 +30,7 @@ vtKernel::~vtKernel()
 };
 */
 
-double vtKernel::doc_kernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
+double vtKernel::docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
 /*
     Document kernel computed as the sum of random walk kernel values between all
     pairs of sentences in doc1 and doc2
@@ -46,4 +46,38 @@ double vtKernel::doc_kernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
     }
     return res;
 }
+
+double vtKernel::_deltaKernel(string& word1, string& word2)
+/*
+    Outputs the dirac delta kernel value between two words
+*/
+{
+    return (word1 == word2);
+}
+
+double vtKernel::_lexicalKernel(string& word1, string& word2)
+/*
+    Laplacian kernel for the lexical similarity between two words
+*/
+{
+    if (word1 == word2)
+    {
+        return 1.;
+    }
+
+    VectorXd emb1 = _embedding[word1];
+    VectorXd emb2 = _embedding[word2];
+
+    if (!emb1.size() || !emb2.size())
+    {
+        return 0.;
+    }
+    else
+    {
+        VectorXd diff = emb1 - emb2;
+        return exp(-.1 * diff.norm());
+    }
+}
+
+
 

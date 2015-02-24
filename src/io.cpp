@@ -113,11 +113,11 @@ std::vector<Graph*> loadGraphs(string path)
         flagset.pop_back();
     }
 
-    std::vector<Graph *> graphs;
+    std::vector<Graph*> graphs;
 
     for (unsigned int i=0; i<flagset.size(); i++)
     {
-        Graph * graph = new Graph;
+        Graph* graph = new Graph;
         graph->label_list = wordset[i];
         graph->edge_list = edgeset[i];
         graph->flag = flagset[i];
@@ -127,7 +127,7 @@ std::vector<Graph*> loadGraphs(string path)
     return graphs;
 };
 
-unordered_map <string, VectorXd> loadEmbedding(string path)
+unordered_map<string, VectorXd> loadEmbedding(string path)
 /*
     Load word embeddings from the source files
 */
@@ -171,7 +171,7 @@ unordered_map <string, VectorXd> loadEmbedding(string path)
 
 }
 
-void writeToCsv(matrix<double> & kernel_matrix, string path)
+void writeToCsv(matrix<double>& kernel_matrix, string path)
 /*
     Write the final output in numpy's to_csv format
 */

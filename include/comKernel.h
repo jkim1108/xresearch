@@ -21,10 +21,10 @@ class comKernel : public vtKernel
 {
     public:
         comKernel(string ipath);
-        double sentenceKernel(Graph * graph1, Graph * graph2);
+        double sentenceKernel(Graph* graph1, Graph* graph2);
 
     protected:
-        VectorXd _centreOfMass(Graph * graph);
+        VectorXd _centreOfMass(Graph* graph);
 
 };
 

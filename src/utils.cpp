@@ -10,7 +10,7 @@
 using namespace Eigen;
 using namespace std;
 
-pair <int, int> vectorToPair(std::vector<int> input)
+pair<int, int> vectorToPair(std::vector<int> input)
 /*
     Convert two dimensional vectors to std::pair
 */
@@ -32,7 +32,7 @@ double factorial(int n)
     else return double(n) * factorial(n-1);
 };
 
-double diffusionKernel(SparseMatrix <float> & adj_matrix, int n)
+double diffusionKernel(SparseMatrix<float>& adj_matrix, int n)
 /*
     Outputs the diffusion kernel values (sum of all the elements in the exponential
     of adjacency matrix) computed up to n-th term

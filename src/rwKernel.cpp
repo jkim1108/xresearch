@@ -17,35 +17,23 @@ rwKernel::rwKernel(string ipath) : vtKernel(ipath)
     _sent_vector = _embedding["good"] - _embedding["bad"];
 }
 
-inline double rwKernel::_lexicalKernel(string & word1, string & word2)
-/*
-    Laplacian kernel for the lexical similarity between two words
-*/
-{
-    if (word1 == word2) return 1.;
-
-    VectorXd emb1 = _embedding[word1];
-    VectorXd emb2 = _embedding[word2];
-
-    if (!emb1.size() or !emb2.size()) return 0.;
-    else
-    {
-        VectorXd diff = emb1 - emb2;
-        return exp(-.1 * diff.norm());
-    }
-}
-
-inline double rwKernel::_sentimentKernel(string & word1, string & word2)
+double rwKernel::_sentimentKernel(string& word1, string& word2)
 /*
     Laplacian kernel for the senitment similarity between two words
 */
 {
-    if (word1 == word2) return 1.;
+    if (word1 == word2)
+    {
+        return 1.;
+    }
 
     VectorXd emb1 = _embedding[word1];
     VectorXd emb2 = _embedding[word2];
 
-    if (!emb1.size() or !emb2.size()) return 0.;
+    if (!emb1.size() || !emb2.size())
+    {
+        return 0.;
+    }
 
     else
     {
@@ -54,7 +42,7 @@ inline double rwKernel::_sentimentKernel(string & word1, string & word2)
     }
 };
 
-inline double rwKernel::_wordKernel(string & word1, string & word2)
+double rwKernel::_wordKernel(string& word1, string& word2)
 /*
     Actual word kernel used for the product adjacency matrix
 */
@@ -62,15 +50,7 @@ inline double rwKernel::_wordKernel(string & word1, string & word2)
     return this->_sentimentKernel(word1, word2) * this->_lexicalKernel(word1, word2);
 }
 
-inline double rwKernel::_deltaKernel(string & word1, string & word2)
-/*
-    Outputs the dirac delta kernel value between two words
-*/
-{
-    return (word1 == word2);
-}
-
-void rwKernel::_makeProductAdjMatrix(SparseMatrix <float> * adj_matrix, Graph * graph1, Graph * graph2)
+void rwKernel::_makeProductAdjMatrix(SparseMatrix <float> * adj_matrix, Graph* graph1, Graph* graph2)
 /*
     Make an adjacency matrix for the product graph
 */
@@ -106,7 +86,7 @@ void rwKernel::_makeProductAdjMatrix(SparseMatrix <float> * adj_matrix, Graph * 
     }
 }
 
-double rwKernel::sentenceKernel(Graph * graph1, Graph * graph2)
+double rwKernel::sentenceKernel(Graph* graph1, Graph* graph2)
 /*
     Random walk kernel obtained from the common walks between graph1 and graph2
     using the product graph formulation
@@ -114,7 +94,7 @@ double rwKernel::sentenceKernel(Graph * graph1, Graph * graph2)
 {
     int n1 = graph1->label_list.size();
     int n2 = graph2->label_list.size();
-    SparseMatrix <float> adj_matrix(n1*n2+1, n1*n2+1);
+    SparseMatrix<float> adj_matrix(n1*n2+1, n1*n2+1);
     this->_makeProductAdjMatrix(&adj_matrix, graph1, graph2);
 
     int walk_length = 3;
