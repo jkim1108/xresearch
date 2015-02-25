@@ -5,24 +5,25 @@
 
 using namespace std;
 
-struct Node
-/*
-    Node structure for the dependency tree
-*/
-{
-    string label;
-    int height;
-    std::vector<int> children;
-};
-
 struct depTree
 /*
     Dependency tree structure for Subtree Kernel computation
 */
 {
     public:
+        struct Node
+        /*
+            Node structure for the dependency tree
+        */
+        {
+            string label;
+            int height;
+            std::vector<int> children;
+        };
+
         depTree(Graph* graph);
         std::vector<Node*> node_list;
+        int _max_height;
 };
 
 std::vector<depTree*> loadDepTree(std::vector<Graph*> graphs);

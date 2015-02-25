@@ -13,6 +13,9 @@
 #include <unordered_map>
 
 class stKernel : public vtKernel
+/*
+    Subtree Kernel
+*/
 {
     public:
         stKernel(string ipath, double lambda);
@@ -21,9 +24,7 @@ class stKernel : public vtKernel
 
     protected:
         double C(Graph* graph1, Graph* graph2, int i, int j);
-        double C(depTree* dt1, depTree* dt2, int i, int j);
-        int L(Graph* graph1, Graph* graph2, int i, int j);
-        int L(depTree* dt1, depTree* dt2, int i, int j);
+        double C(depTree* dt1, depTree* dt2, int i, int j, int l);
         double _lambda;
 };
 

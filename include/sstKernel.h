@@ -6,6 +6,9 @@
 
 
 class sstKernel : public vtKernel
+/*
+    Sparse Subtree Kernel
+*/
 {
     public:
         sstKernel(string ipath, double lambda);

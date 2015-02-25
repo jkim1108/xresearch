@@ -1,8 +1,9 @@
-#ifndef COMKERNEL_H
-#define COMKERNEL_H
+#ifndef STRINGKERNEL_H
+#define STRINGKERNEL_H
 
 #include "main.h"
 #include "vtKernel.h"
+#include "depTree.h"
 
 #include <iostream>
 #include <cmath>
@@ -11,20 +12,14 @@
 #include <Eigen/SparseCore>
 #include <unordered_map>
 
-using namespace std;
-using namespace Eigen;
 
-class comKernel : public vtKernel
-/*
-    Centre of mass kernel
-*/
+class stringKernel : public vtKernel
 {
     public:
-        comKernel(string ipath);
+        stringKernel(string ipath, double lambda);
         double sentenceKernel(Graph* graph1, Graph* graph2);
-
     protected:
-        VectorXd _centreOfMass(Graph* graph);
+        double _lambda;
 };
 
-#endif // COMKERNEL_H
+#endif // STRINGKERNEL_H

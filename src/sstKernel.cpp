@@ -53,7 +53,7 @@ double sstKernel::Cp(Graph* graph1, Graph* graph2, int q, int i, int j)
 
 double sstKernel::C(Graph* graph1, Graph* graph2, int q, int r, int i, int j)
 {
-return _lambda * C(graph1, graph2, q, r, i, j-1) + Cp(graph1, graph2, q, r, i, j);
+    return _lambda * C(graph1, graph2, q, r, i, j-1) + Cp(graph1, graph2, q, r, i, j);
 }
 
 double sstKernel::Cp(Graph* graph1, Graph* graph2, int q, int r, int i, int j)

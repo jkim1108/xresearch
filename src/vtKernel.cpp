@@ -79,5 +79,18 @@ double vtKernel::_lexicalKernel(string& word1, string& word2)
     }
 }
 
+double vtKernel::_laplacianKernel(VectorXd emb1, VectorXd emb2)
+{
+    if (!emb1.size() || !emb2.size())
+    {
+        return 0.;
+    }
+    else
+    {
+        VectorXd diff = emb1 - emb2;
+        return exp(-.1 * diff.norm());
+    }
+}
+;
 
 

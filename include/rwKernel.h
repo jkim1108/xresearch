@@ -16,7 +16,7 @@ using namespace std;
 
 class rwKernel : public vtKernel
 /*
-    Class for the random walk kernel computation
+    Random walk kernel
 */
 {
     public:
@@ -27,9 +27,7 @@ class rwKernel : public vtKernel
         double _wordKernel(string& word1, string& word2);
         double _sentimentKernel(string& word1, string& word2);
         void _makeProductAdjMatrix(SparseMatrix <float> * adj_matrix, Graph* graph1, Graph* graph2);
-
         VectorXd _sent_vector;
-
 };
 
 #endif // RWKERNEL_H
