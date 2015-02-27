@@ -22,7 +22,7 @@ std::vector<std::vector<Graph*>> getDocGraphs(std::vector<Graph*> graphs)
     std::vector<Graph*> doc_graph;
 
     for (auto graph : graphs){
-        string first = graph->label_list[0];
+        string first = graph->labelList[0];
         if (first.find("###")==0)
         {
             res.push_back(doc_graph);
@@ -118,8 +118,8 @@ std::vector<Graph*> loadGraphs(string path)
     for (unsigned int i=0; i<flagset.size(); i++)
     {
         Graph* graph = new Graph;
-        graph->label_list = wordset[i];
-        graph->edge_list = edgeset[i];
+        graph->labelList = wordset[i];
+        graph->edgeList = edgeset[i];
         graph->flag = flagset[i];
         graphs.push_back(graph);
     }

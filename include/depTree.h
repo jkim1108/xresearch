@@ -22,8 +22,8 @@ struct depTree
         };
 
         depTree(Graph* graph);
-        std::vector<Node*> node_list;
-        int _max_height;
+        std::vector<Node*> nodeList;
+        int _maxHeight;
 };
 
 std::vector<depTree*> loadDepTree(std::vector<Graph*> graphs);

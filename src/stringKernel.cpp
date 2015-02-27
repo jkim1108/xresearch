@@ -1,16 +1,17 @@
 #include "stringKernel.h"
 
-stringKernel::stringKernel(string ipath, double lambda) : vtKernel(ipath)
+stringKernel::stringKernel(string ipath) : vtKernel(ipath)
 {
-    _lambda = lambda;
 }
 
 double stringKernel::sentenceKernel(Graph* graph1, Graph* graph2)
 {
     double sum = 0;
-    for (unsigned int i=0; i<graph1->label_list.size(); i++){
-        for (unsigned int j=0; j<graph2->label_list.size(); j++){
-            sum += this->_lexicalKernel(graph1->label_list[i], graph2->label_list[j]);
+    for (unsigned int i=0; i<graph1->labelList.size(); i++)
+    {
+        for (unsigned int j=0; j<graph2->labelList.size(); j++)
+        {
+            sum += this->_lexicalKernel(graph1->labelList[i], graph2->labelList[j]);
         }
     }
     return sum;

@@ -55,23 +55,23 @@ void rwKernel::_makeProductAdjMatrix(SparseMatrix <float> * adj_matrix, Graph* g
     Make an adjacency matrix for the product graph
 */
 {
-    int n1 = graph1->label_list.size();
+    int n1 = graph1->labelList.size();
 
-    auto gl1 = graph1->label_list;
-    auto gl2 = graph2->label_list;
+    auto gl1 = graph1->labelList;
+    auto gl2 = graph2->labelList;
 
-    for (unsigned int i=0; i < graph1->label_list.size(); i++)
+    for (unsigned int i=0; i < graph1->labelList.size(); i++)
     {
-        for (unsigned int j=0; j < graph2->label_list.size(); j++)
+        for (unsigned int j=0; j < graph2->labelList.size(); j++)
         {
             int ind = i + j * n1 + 1;
             adj_matrix->coeffRef(0, ind) = this->_wordKernel(gl1[i], gl2[j]);
         }
     }
 
-    for (auto edge1 : graph1->edge_list)
+    for (auto edge1 : graph1->edgeList)
     {
-        for (auto edge2 : graph2->edge_list)
+        for (auto edge2 : graph2->edgeList)
         {
             int ind1 = edge1.first + edge2.first * n1 + 1;
             int ind2 = edge1.second + edge2.second * n1 + 1;
@@ -92,8 +92,8 @@ double rwKernel::sentenceKernel(Graph* graph1, Graph* graph2)
     using the product graph formulation
 */
 {
-    int n1 = graph1->label_list.size();
-    int n2 = graph2->label_list.size();
+    int n1 = graph1->labelList.size();
+    int n2 = graph2->labelList.size();
     SparseMatrix<float> adj_matrix(n1*n2+1, n1*n2+1);
     this->_makeProductAdjMatrix(&adj_matrix, graph1, graph2);
 

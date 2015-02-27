@@ -19,8 +19,8 @@ struct Graph
     Graph structure that has labels, edges, and flag(positive or negative) information
 */
 {
-    std::vector<string> label_list;
-    std::vector<std::pair<int, int>> edge_list;
+    std::vector<string> labelList;
+    std::vector<std::pair<int, int>> edgeList;
     bool flag;
 };
 

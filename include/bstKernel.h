@@ -13,6 +13,9 @@
 #include <unordered_map>
 
 class bstKernel : public vtKernel
+/*
+    Baricentric Subtree Kernel
+*/
 {
     public:
         struct preComputed
@@ -22,35 +25,40 @@ class bstKernel : public vtKernel
                 value = 0.;
                 length = 0.;
             }
-            VectorXd bariCentre1;
-            VectorXd bariCentre2;
+            VectorXd baryCentre1;
+            VectorXd baryCentre2;
             double value;
             double length;
         };
 
-        bstKernel(string ipath, double lambda);
+        bstKernel(string ipath, double lambda, int maxLength=0);
+        friend std::ostream& operator<< (std::ostream& stream, const bstKernel& bk);
         double sentenceKernel(Graph* graph1, Graph* graph2);
         double sentenceKernel(depTree* dt1, depTree* dt2);
 
     protected:
         double C(Graph* graph1, Graph* graph2, int i, int j, int l, preComputed& pre);
-        double C(depTree* dt1, depTree* dt2, int i, int j, int l);
+        double C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre);
+
         double _lambda;
-        inline VectorXd _updateBariCentre(VectorXd bariCentre, int length, VectorXd newVector)
+        int _maxLength;
+
+        inline VectorXd _updateBaryCentre(VectorXd& baryCentre, int length, VectorXd& newVector)
         {
-            if ((length==0) || (bariCentre.size()==0))
+            if ((length==0) || (baryCentre.size()==0))
             {
                 return newVector;
             }
             else if (newVector.size()==0)
             {
-                return bariCentre;
+                return baryCentre;
             }
             else
             {
-                return (bariCentre * length + newVector)/(length + 1);
+                return (baryCentre * length + newVector)/(length + 1);
             }
         }
+
 };
 
 #endif // BSTKERNEL_H

@@ -32,7 +32,7 @@ map <string, int> MID_POINTS
 
 int main()
 {
-    int n = 1000;
+    int n = 1000*2;
     std::vector<string> sets;
     string dataset = "sentiment";
     cout << dataset << endl;
@@ -40,7 +40,7 @@ int main()
     string ipath = PATH + "data/" + dataset + "/";
     string opath = PATH + dataset + "_kernel_matrix.csv";
 
-    bstKernel model(ipath, .1);
+    pstKernel model(ipath, 1. , 4);
     auto graphs = loadGraphs(ipath);
     auto dts = loadDepTree(graphs);
 

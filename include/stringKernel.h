@@ -16,10 +16,9 @@
 class stringKernel : public vtKernel
 {
     public:
-        stringKernel(string ipath, double lambda);
+        stringKernel(string ipath);
         double sentenceKernel(Graph* graph1, Graph* graph2);
     protected:
-        double _lambda;
 };
 
 #endif // STRINGKERNEL_H

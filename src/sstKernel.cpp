@@ -11,8 +11,8 @@ sstKernel::sstKernel(string ipath, double lambda) : vtKernel(ipath)
 double sstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
 {
     double sum = 0;
-    int n = graph1->label_list.size();
-    int m = graph2->label_list.size();
+    int n = graph1->labelList.size();
+    int m = graph2->labelList.size();
     for (int q=0; q<min(m, n); q++)
     {
         sum += K(graph1, graph2, q, m, n);
@@ -27,7 +27,7 @@ double sstKernel::K(Graph* graph1, Graph* graph2, int q, int i, int j)
     for (int s=0; s<i; s++)
     {
         sum += _lambda * _lambda * C(graph1, graph2, q-1, s-1, j-1,
-                this->_lexicalKernel(graph1->label_list[s], graph2->label_list[j]));
+                this->_lexicalKernel(graph1->labelList[s], graph2->labelList[j]));
     }
     return sum;
 };
@@ -65,7 +65,7 @@ double sstKernel::Cp(Graph* graph1, Graph* graph2, int q, int r, int i, int j)
 
     else
     {
-        return _lambda * _lambda * this->_lexicalKernel(graph1->label_list[i], graph2->label_list[j]) *
+        return _lambda * _lambda * this->_lexicalKernel(graph1->labelList[i], graph2->labelList[j]) *
                 C(graph1, graph2, q-1, i-1, j-1) + _lambda * Cp(graph1, graph2, q, r, i, j-1);
     }
 }

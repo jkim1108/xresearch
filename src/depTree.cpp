@@ -36,7 +36,7 @@ depTree::depTree(Graph* graph)
 {
     // Make a map from the node index to its children
     map<int, std::vector<int>> children_map;
-    for (auto edge:graph->edge_list)
+    for (auto edge:graph->edgeList)
     {
         if (children_map.find(edge.second)==children_map.end())
         {
@@ -50,24 +50,24 @@ depTree::depTree(Graph* graph)
     }
 
     // Get the list of hegihts
-    int n = graph->label_list.size();
-    std::vector<int> height_list(n);
+    int n = graph->labelList.size();
+    std::vector<int> heightList(n);
     std::vector<int> range(n);
     std::iota(range.begin(), range.end(), 0);
     auto bind_height = std::bind(height, children_map, placeholders::_1);
-    std::transform(range.begin(), range.end(), height_list.begin(), bind_height);
+    std::transform(range.begin(), range.end(), heightList.begin(), bind_height);
 
-    auto it = std::max_element(height_list.begin(), height_list.end());
-    _max_height = *it;
+    auto it = std::max_element(heightList.begin(), heightList.end());
+    _maxHeight = *it;
 
     // Create the node list
     for (int i=0; i<n; i++)
     {
         Node* node = new Node;
-        node->label = graph->label_list[i];
-        node->height = height_list[i];
+        node->label = graph->labelList[i];
+        node->height = heightList[i];
         node->children = children_map[i];
-        node_list.push_back(node);
+        nodeList.push_back(node);
     }
 };
 

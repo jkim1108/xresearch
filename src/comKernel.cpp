@@ -35,7 +35,7 @@ VectorXd comKernel::_centreOfMass(Graph* graph)
     VectorXd res(300);
     int n = 0;
 
-    for (auto label:graph->label_list)
+    for (auto label:graph->labelList)
     {
         VectorXd vec = _embedding[label];
         if (vec.size())
