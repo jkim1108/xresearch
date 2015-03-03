@@ -39,6 +39,7 @@ double sstKernel::C(Graph* graph1, Graph* graph2, int q, int i, int j, double a)
     {
         sum += C(graph1, graph2, q, r, i, j);
     }
+    return sum;
 }
 
 double sstKernel::C(Graph* graph1, Graph* graph2, int q, int i, int j)

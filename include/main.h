@@ -6,7 +6,7 @@
 #include <boost/numeric/ublas/matrix.hpp>
 
 #include <unordered_map>
-#include <map>ublas::matrix<double>
+#include <map>
 
 using namespace std;
 using namespace boost::numeric;
