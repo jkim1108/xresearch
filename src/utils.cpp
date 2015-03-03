@@ -1,14 +1,12 @@
 #include "main.h"
+#include <boost/numeric/ublas/matrix_proxy.hpp>
+
 #include <iostream>
 #include <cmath>
 #include <cassert>
 
-#include <Eigen/Dense>
-#include <Eigen/SparseCore>
-#include <thread>
-
-using namespace Eigen;
 using namespace std;
+using namespace boost::numeric;
 
 pair<int, int> vectorToPair(std::vector<int> input)
 /*
@@ -32,26 +30,4 @@ double factorial(int n)
     else return double(n) * factorial(n-1);
 };
 
-double diffusionKernel(SparseMatrix<float>& adj_matrix, int n)
-/*
-    Outputs the diffusion kernel values (sum of all the elements in the exponential
-    of adjacency matrix) computed up to n-th term
-*/
-{
-    double lambda = 1.;
-    int i = 1;
-    SparseMatrix <float, RowMajor> acc_matrix(adj_matrix);
-
-    double sum = lambda * acc_matrix.row(0).sum();
-    //sum = 0.;
-    while(i++<n)
-    {
-        //cout << sum << endl;
-        acc_matrix = acc_matrix * adj_matrix;
-        sum += acc_matrix.row(0).sum() / factorial(i); //* pow(lambda, i);
-    }
-    //cout << sum << endl;
-    //cout << endl;
-    return sum;
-}
 

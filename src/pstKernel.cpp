@@ -9,9 +9,9 @@ pstKernel::pstKernel(string ipath, double lambda, int maxLength) : vtKernel(ipat
 double pstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
 {
     double sum = 0;
-    for (int i=0; i<graph1->labelList.size(); i++)
+    for (unsigned int i=0; i<graph1->labelList.size(); i++)
     {
-        for (int j=0; j<graph2->labelList.size(); j++)
+        for (unsigned int j=0; j<graph2->labelList.size(); j++)
         {
             int L;
             if (_maxLength==0)
@@ -28,7 +28,7 @@ double pstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
     return sum;
 };
 
-double pstKernel::C(Graph* graph1, Graph* graph2, int i, int j, int l, double pre, double multi)
+double pstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, double pre, double multi)
 {
     if ((l == 0) or (i>=graph1->labelList.size()) or (j>=graph2->labelList.size()))
     {

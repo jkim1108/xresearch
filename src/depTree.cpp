@@ -17,7 +17,6 @@ int height(map<int, std::vector<int>> children_map, int node_ind)
     {
         return 0;
     }
-
     else
     {
         // Define the hegiht as the 1 + max of heght of its children
@@ -78,7 +77,7 @@ std::vector<depTree*> loadDepTree(std::vector<Graph*> graphs)
 */
 {
     std::vector<depTree*> output;
-    for (int i=0; i<graphs.size(); i++)
+    for (unsigned int i=0; i<graphs.size(); i++)
     {
         depTree* dt = new depTree(graphs[i]);
         output.push_back(dt);

@@ -6,9 +6,6 @@
 
 #include <iostream>
 #include <cmath>
-
-#include <Eigen/Dense>
-#include <Eigen/SparseCore>
 #include <unordered_map>
 
 using namespace std;

@@ -4,7 +4,6 @@
 #include <main.h>
 #include <vtKernel.h>
 
-
 class sstKernel : public vtKernel
 /*
     Sparse Subtree Kernel

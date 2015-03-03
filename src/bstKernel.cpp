@@ -8,15 +8,15 @@ bstKernel::bstKernel(string ipath, double lambda, int maxLength) : vtKernel(ipat
 
 std::ostream& operator<< (std::ostream& stream, const bstKernel& bk)
 {
-    stream << "bstKernel_" << bk._lambda;
+  return stream << "bstKernel_" << bk._lambda;
 }
 
 double bstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
 {
     double sum = 0;
-    for (int i=0; i<graph1->labelList.size(); i++)
+    for (unsigned int i=0; i<graph1->labelList.size(); i++)
     {
-        for (int j=0; j<graph2->labelList.size(); j++)
+        for (unsigned int j=0; j<graph2->labelList.size(); j++)
         {
             int L;
             if (_maxLength==0)
@@ -34,7 +34,7 @@ double bstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
     return sum;
 }
 
-double bstKernel::C(Graph* graph1, Graph* graph2, int i, int j, int l, preComputed& pre)
+double bstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre)
 {
     if ((l == 0) or (i>=graph1->labelList.size()) or (j>=graph2->labelList.size()))
     {
@@ -55,9 +55,9 @@ double bstKernel::C(Graph* graph1, Graph* graph2, int i, int j, int l, preComput
 double bstKernel::sentenceKernel(depTree* dt1, depTree* dt2)
 {
     double sum = 0;
-    for (int i=0; i<dt1->nodeList.size(); i++)
+    for (unsigned int i=0; i<dt1->nodeList.size(); i++)
     {
-        for (int j=0; j<dt2->nodeList.size(); j++)
+        for (unsigned int j=0; j<dt2->nodeList.size(); j++)
         {
             int L;
             if (_maxLength==0)

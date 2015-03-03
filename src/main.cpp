@@ -2,8 +2,6 @@
 #include "main.h"
 #include "pstKernel.h"
 #include "bstKernel.h"
-#include "stKernel.h"
-#include "stringKernel.h"
 #include "depTree.h"
 
 #include <iostream>
@@ -13,13 +11,12 @@
 #include <omp.h>
 #include <sstream>
 #include <map>
-
 #include <boost/numeric/ublas/matrix.hpp>
 
 using namespace std;
 using namespace boost::numeric::ublas;
 
-std::string PATH = "/home/jonghoon/polytechnique/python/";
+std::string PATH = "/home/kim/xresearch/";
 
 // Index where the flag value changes
 map <string, int> MID_POINTS
@@ -30,40 +27,55 @@ map <string, int> MID_POINTS
     {"books", 997}
 };
 
-int main()
+int main(int argc, char* argv[])
 {
-    int n = 1000*2;
+
     std::vector<string> sets;
-    string dataset = "sentiment";
+    string dataset(argv[1]);
     cout << dataset << endl;
 
     string ipath = PATH + "data/" + dataset + "/";
-    string opath = PATH + dataset + "_kernel_matrix.csv";
+    string opath = PATH + "result/" + dataset + "_kernel_matrix.csv";
 
-    pstKernel model(ipath, 1. , 4);
+    pstKernel model(ipath, 1, 5);
     auto graphs = loadGraphs(ipath);
     auto dts = loadDepTree(graphs);
 
-    std::vector<int> indexset(n);
-    int mid_point = MID_POINTS[dataset];
+    int n;
 
+    if (argc==3)
+      {
+	n = atoi(argv[2]);
+      }
+    else if (argc==2) 
+      {
+	n = dts.size();
+      }
+    else 
+      {
+	throw std::invalid_argument("wrong number of arguments");
+      }
+
+    std::vector<int> indexset(n);
+    if (argc==3)
+      {    
+	std::iota(indexset.begin(), indexset.end(), 0);
+      }
     // Assign the index used for the kernel computation so that it can be balanced across flags
-    for (int i=0; i<n; i++)
-    {
-        if (i<n/2)
-        {
-            indexset.at(i) = i;
-        }
-        else
-        {
-            indexset.at(i) = mid_point + i - n/2;
-        }
-    }
+    else if (argc==2)
+      {
+	int mid_point = MID_POINTS[dataset];
+	for (int i=0; i<n; i++)
+	  {
+	    std::iota(indexset.begin(), indexset.begin() + n/2, 0);
+	    std::iota(indexset.begin() + n/2, indexset.end(), mid_point);
+	  }
+      }
 
     // Grpah kernel matrix
     matrix<double> kernel_matrix(n, n);
 
-    int finished, prev;
+    int finished(0), prev(0);
     int total = (n*(n+1))/2;
 
     // Declare i and j in advance so that we can use static scheduling of OpenMP
@@ -74,7 +86,7 @@ int main()
     {
         for (j=i; j<n; j++)
         {
-            kernel_matrix(i, j) = model.sentenceKernel(graphs[indexset.at(i)], graphs[indexset.at(j)]);
+            kernel_matrix(i, j) = model.sentenceKernel(dts[indexset.at(i)], dts[indexset.at(j)]);
             kernel_matrix(j, i) = kernel_matrix(i, j);
         }
 

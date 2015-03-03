@@ -7,11 +7,7 @@
 
 #include <iostream>
 #include <cmath>
-
-#include <Eigen/Dense>
-#include <Eigen/SparseCore>
 #include <unordered_map>
-
 
 class stringKernel : public vtKernel
 {

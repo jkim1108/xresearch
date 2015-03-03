@@ -4,14 +4,10 @@
 #include <fstream>
 
 #include <boost/numeric/ublas/matrix.hpp>
-#include <Eigen/Dense>
-#include <Eigen/SparseCore>
-
 #include <unordered_map>
 
 using namespace std;
-using namespace Eigen;
-using namespace boost::numeric::ublas;
+using namespace boost::numeric;
 
 std::vector<std::vector<Graph*>> getDocGraphs(std::vector<Graph*> graphs)
 /*
@@ -127,7 +123,7 @@ std::vector<Graph*> loadGraphs(string path)
     return graphs;
 };
 
-unordered_map<string, VectorXd> loadEmbedding(string path)
+unordered_map<string, ublas::vector<double>> loadEmbedding(string path)
 /*
     Load word embeddings from the source files
 */
@@ -144,11 +140,11 @@ unordered_map<string, VectorXd> loadEmbedding(string path)
     std::ifstream infile2(path + "w2v_embedding.csv");
     string line;
 
-    std::vector<VectorXd> embeddings;
+    std::vector<ublas::vector<double>> embeddings;
     while (infile2.good())
     {
         string temp;
-        VectorXd embedding(300);
+        ublas::vector<double> embedding(300);
         getline(infile2, line);
         std::stringstream linestream(line);
         int ind = 0;
@@ -161,7 +157,7 @@ unordered_map<string, VectorXd> loadEmbedding(string path)
         embeddings.push_back(embedding);
     }
 
-    unordered_map <string, VectorXd> result;
+    unordered_map <string, ublas::vector<double>> result;
     int n = words.size();
     for (int i=0; i<n; i++)
     {
@@ -171,7 +167,7 @@ unordered_map<string, VectorXd> loadEmbedding(string path)
 
 }
 
-void writeToCsv(matrix<double>& kernel_matrix, string path)
+void writeToCsv(ublas::matrix<double>& kernel_matrix, string path)
 /*
     Write the final output in numpy's to_csv format
 */

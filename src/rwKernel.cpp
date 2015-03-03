@@ -1,20 +1,21 @@
 #include "rwKernel.h"
 #include <iostream>
 #include <cmath>
-
-#include <Eigen/Dense>
-#include <Eigen/SparseCore>
 #include <unordered_map>
+#include <boost/numeric/ublas/matrix_sparse.hpp>
+#include <boost/numeric/ublas/matrix_proxy.hpp>
 
-using namespace Eigen;
 using namespace std;
+using namespace boost::numeric;
 
-rwKernel::rwKernel(string ipath) : vtKernel(ipath)
+rwKernel::rwKernel(string ipath, double lambda, int maxLength) : vtKernel(ipath)
 /*
     Set the sentiment basis vector
 */
 {
     _sent_vector = _embedding["good"] - _embedding["bad"];
+    _lambda = lambda;
+    _maxLength = maxLength;
 }
 
 double rwKernel::_sentimentKernel(string& word1, string& word2)
@@ -27,8 +28,8 @@ double rwKernel::_sentimentKernel(string& word1, string& word2)
         return 1.;
     }
 
-    VectorXd emb1 = _embedding[word1];
-    VectorXd emb2 = _embedding[word2];
+    ublas::vector<double> emb1 = _embedding[word1];
+    ublas::vector<double> emb2 = _embedding[word2];
 
     if (!emb1.size() || !emb2.size())
     {
@@ -37,8 +38,8 @@ double rwKernel::_sentimentKernel(string& word1, string& word2)
 
     else
     {
-        VectorXd diff = emb1 - emb2;
-        return exp(-abs(diff.dot(_sent_vector)));
+        ublas::vector<double> diff = emb1 - emb2;
+        return exp(-abs(inner_prod(diff, _sent_vector)));
     }
 };
 
@@ -50,7 +51,7 @@ double rwKernel::_wordKernel(string& word1, string& word2)
     return this->_sentimentKernel(word1, word2) * this->_lexicalKernel(word1, word2);
 }
 
-void rwKernel::_makeProductAdjMatrix(SparseMatrix <float> * adj_matrix, Graph* graph1, Graph* graph2)
+void rwKernel::_makeProductAdjMatrix(ublas::compressed_matrix<double>& adjMatrix, Graph* graph1, Graph* graph2)
 /*
     Make an adjacency matrix for the product graph
 */
@@ -65,7 +66,7 @@ void rwKernel::_makeProductAdjMatrix(SparseMatrix <float> * adj_matrix, Graph* g
         for (unsigned int j=0; j < graph2->labelList.size(); j++)
         {
             int ind = i + j * n1 + 1;
-            adj_matrix->coeffRef(0, ind) = this->_wordKernel(gl1[i], gl2[j]);
+            adjMatrix(0, ind) = this->_wordKernel(gl1[i], gl2[j]);
         }
     }
 
@@ -78,10 +79,10 @@ void rwKernel::_makeProductAdjMatrix(SparseMatrix <float> * adj_matrix, Graph* g
             int ind3 = edge1.second + edge2.first * n1 + 1;
             int ind4 = edge1.first + edge2.second * n1 + 1;
 
-            adj_matrix->coeffRef(ind2, ind1) = this->_wordKernel(gl1[edge1.first], gl2[edge2.first]);
-            adj_matrix->coeffRef(ind1, ind2) = this->_wordKernel(gl1[edge1.second], gl2[edge2.second]);
-            adj_matrix->coeffRef(ind4, ind3) = this->_wordKernel(gl1[edge1.second], gl2[edge2.first]);
-            adj_matrix->coeffRef(ind3, ind4) = this->_wordKernel(gl1[edge1.first], gl2[edge2.second]);
+            adjMatrix(ind2, ind1) = this->_wordKernel(gl1[edge1.first], gl2[edge2.first]);
+            adjMatrix(ind1, ind2) = this->_wordKernel(gl1[edge1.second], gl2[edge2.second]);
+            adjMatrix(ind4, ind3) = this->_wordKernel(gl1[edge1.second], gl2[edge2.first]);
+            adjMatrix(ind3, ind4) = this->_wordKernel(gl1[edge1.first], gl2[edge2.second]);
         }
     }
 }
@@ -94,12 +95,18 @@ double rwKernel::sentenceKernel(Graph* graph1, Graph* graph2)
 {
     int n1 = graph1->labelList.size();
     int n2 = graph2->labelList.size();
-    SparseMatrix<float> adj_matrix(n1*n2+1, n1*n2+1);
-    this->_makeProductAdjMatrix(&adj_matrix, graph1, graph2);
+    ublas::compressed_matrix<double> adjMatrix(n1*n2+1, n1*n2+1);
+    this->_makeProductAdjMatrix(adjMatrix, graph1, graph2);
 
-    int walk_length = 3;
-    double sum = diffusionKernel(adj_matrix, walk_length);
+    auto accMatrix(adjMatrix);
+    int i = 0;
+    ublas::matrix_row<ublas::compressed_matrix<double>> firstRow(accMatrix, 0);
+    double sum = ublas::norm_1(firstRow);
 
+    while(++i<_maxLength)
+    {
+        accMatrix = ublas::prod(accMatrix, adjMatrix);
+        sum += ublas::norm_1(firstRow) * pow(_lambda, i);
+    }
     return sum;
 }
-

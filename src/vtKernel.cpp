@@ -2,13 +2,9 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
-
-#include <Eigen/Dense>
-#include <Eigen/SparseCore>
 #include <unordered_map>
 
-using namespace Eigen;
-using namespace boost::numeric::ublas;
+using namespace boost::numeric;
 using namespace std;
 
 vtKernel::vtKernel(string ipath)
@@ -65,8 +61,8 @@ double vtKernel::_lexicalKernel(string& word1, string& word2)
         return 1.;
     }
 
-    VectorXd emb1 = _embedding[word1];
-    VectorXd emb2 = _embedding[word2];
+    ublas::vector<double> emb1 = _embedding[word1];
+    ublas::vector<double> emb2 = _embedding[word2];
 
     if (!emb1.size() || !emb2.size())
     {
@@ -74,12 +70,12 @@ double vtKernel::_lexicalKernel(string& word1, string& word2)
     }
     else
     {
-        VectorXd diff = emb1 - emb2;
-        return exp(-.1 * diff.norm());
+        ublas::vector<double> diff = emb1 - emb2;
+        return exp(-.1 * norm_1(diff));
     }
 }
 
-double vtKernel::_laplacianKernel(VectorXd emb1, VectorXd emb2)
+double vtKernel::_laplacianKernel(ublas::vector<double>& emb1, ublas::vector<double>& emb2)
 {
     if (!emb1.size() || !emb2.size())
     {
@@ -87,8 +83,8 @@ double vtKernel::_laplacianKernel(VectorXd emb1, VectorXd emb2)
     }
     else
     {
-        VectorXd diff = emb1 - emb2;
-        return exp(-.1 * diff.norm());
+        ublas::vector<double> diff = emb1 - emb2;
+        return exp(-.1 * norm_1(diff));
     }
 }
 ;

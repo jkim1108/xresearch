@@ -4,12 +4,10 @@
 #include "main.h"
 
 #include <iostream>
-#include <Eigen/Dense>
-#include <Eigen/SparseCore>
 #include <unordered_map>
 
 using namespace std;
-using namespace Eigen;
+using namespace boost::numeric;
 
 class vtKernel
 /*
@@ -25,8 +23,8 @@ class vtKernel
     protected :
         double _lexicalKernel(string& word1, string& word2);
         double _deltaKernel(string& word1, string& word2);
-        double _laplacianKernel(VectorXd emb1, VectorXd emb2);
-        unordered_map <string, VectorXd> _embedding;
+        double _laplacianKernel(ublas::vector<double>& emb1, ublas::vector<double>& emb2);
+        unordered_map <string, ublas::vector<double>> _embedding;
 };
 
 
