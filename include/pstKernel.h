@@ -14,16 +14,13 @@ class pstKernel : public vtKernel
 */
 {
     public:
-        pstKernel(string ipath, double lambda, int maxLength);
+        pstKernel(string ipath, double lambda, int maxLength, bool useSent=false);
         double sentenceKernel(Graph* graph1, Graph* graph2);
         double sentenceKernel(depTree* dt1, depTree* dt2);
 
     protected:
         double C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, double pre=0, double multi=1);
         double C(depTree* dt1, depTree* dt2, int i, int j, int l);
-        double _lambda;
-        int _maxLength;
-
 };
 
 #endif // PSTKERNEL_H

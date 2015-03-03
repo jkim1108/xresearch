@@ -1,12 +1,6 @@
 #include "sstKernel.h"
 
-sstKernel::sstKernel(string ipath, double lambda) : vtKernel(ipath)
-/*
-    Set the decaying factor
-*/
-{
-    _lambda = lambda;
-}
+sstKernel::sstKernel(string ipath, double lambda, int maxLength, bool useSent) : vtKernel(ipath, lambda, maxLength, useSent){}
 
 double sstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
 {

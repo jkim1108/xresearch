@@ -7,13 +7,17 @@
 using namespace boost::numeric;
 using namespace std;
 
-vtKernel::vtKernel(string ipath)
+vtKernel::vtKernel(string ipath, double lambda, int maxLength, bool useSent)
 /*
     Assign the embedding dictionary and sentiment vector which shall be used for
     the computation of the kernel
 */
 {
     _embedding = loadEmbedding(ipath);
+    _lambda = lambda;
+    _maxLength = maxLength;
+    _useSent = useSent;
+    _sent_vector = _embedding["good"] - _embedding["bad"];
 };
 
 /*

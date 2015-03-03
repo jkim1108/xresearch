@@ -1,10 +1,6 @@
 #include "bstKernel.h"
 
-bstKernel::bstKernel(string ipath, double lambda, int maxLength) : vtKernel(ipath)
-{
-    _lambda = lambda;
-    _maxLength = maxLength;
-}
+bstKernel::bstKernel(string ipath, double lambda, int maxLength, bool useSent) : vtKernel(ipath, lambda, maxLength, useSent){}
 
 std::ostream& operator<< (std::ostream& stream, const bstKernel& bk)
 {

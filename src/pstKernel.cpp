@@ -1,10 +1,6 @@
 #include "pstKernel.h"
 
-pstKernel::pstKernel(string ipath, double lambda, int maxLength) : vtKernel(ipath)
-{
-    _lambda = lambda;
-    _maxLength = maxLength;
-}
+pstKernel::pstKernel(string ipath, double lambda, int maxLength, bool useSent) : vtKernel(ipath, lambda, maxLength, useSent){}
 
 double pstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
 {

@@ -11,6 +11,17 @@
 using namespace std;
 using namespace boost::numeric;
 
+string PATH = "/home/kim/xresearch/";
+
+// Index where the flag value changes
+map <string, int> MID_POINTS
+{
+    {"sentiment", 5331},
+    {"metaphor", 1385},
+    {"subjectivity", 5000},
+    {"books", 997}
+};
+
 struct Graph
 /*
     Graph structure that has labels, edges, and flag(positive or negative) information

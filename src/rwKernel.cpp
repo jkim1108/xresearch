@@ -8,15 +8,7 @@
 using namespace std;
 using namespace boost::numeric;
 
-rwKernel::rwKernel(string ipath, double lambda, int maxLength) : vtKernel(ipath)
-/*
-    Set the sentiment basis vector
-*/
-{
-    _sent_vector = _embedding["good"] - _embedding["bad"];
-    _lambda = lambda;
-    _maxLength = maxLength;
-}
+rwKernel::rwKernel(string ipath, double lambda, int maxLength, bool useSent) : vtKernel(ipath, lambda, maxLength, useSent){}
 
 double rwKernel::_sentimentKernel(string& word1, string& word2)
 /*

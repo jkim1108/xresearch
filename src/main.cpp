@@ -2,6 +2,7 @@
 #include "main.h"
 #include "pstKernel.h"
 #include "bstKernel.h"
+#include "rwKernel.h"
 #include "depTree.h"
 
 #include <iostream>
@@ -11,26 +12,14 @@
 #include <omp.h>
 #include <sstream>
 #include <map>
+#include <time.h>
 #include <boost/numeric/ublas/matrix.hpp>
 
 using namespace std;
-using namespace boost::numeric::ublas;
-
-std::string PATH = "/home/kim/xresearch/";
-
-// Index where the flag value changes
-map <string, int> MID_POINTS
-{
-    {"sentiment", 5331},
-    {"metaphor", 1385},
-    {"subjectivity", 5000},
-    {"books", 997}
-};
+using namespace boost::numeric;
 
 int main(int argc, char* argv[])
 {
-
-    std::vector<string> sets;
     string dataset(argv[1]);
     cout << dataset << endl;
 
@@ -42,38 +31,38 @@ int main(int argc, char* argv[])
     auto dts = loadDepTree(graphs);
 
     int n;
-
     if (argc==3)
-      {
-	n = atoi(argv[2]);
-      }
-    else if (argc==2) 
-      {
-	n = dts.size();
-      }
-    else 
-      {
-	throw std::invalid_argument("wrong number of arguments");
-      }
+    {
+        n = atoi(argv[2]);
+    }
+    else if (argc==2)
+    {
+        n = graphs.size();
+    }
+    else
+    {
+        throw std::invalid_argument("wrong number of arguments");
+    }
 
     std::vector<int> indexset(n);
     if (argc==3)
-      {    
-	std::iota(indexset.begin(), indexset.end(), 0);
-      }
+    {
+        std::iota(indexset.begin(), indexset.end(), 0);
+    }
     // Assign the index used for the kernel computation so that it can be balanced across flags
     else if (argc==2)
-      {
-	int mid_point = MID_POINTS[dataset];
-	for (int i=0; i<n; i++)
-	  {
-	    std::iota(indexset.begin(), indexset.begin() + n/2, 0);
-	    std::iota(indexset.begin() + n/2, indexset.end(), mid_point);
-	  }
-      }
+    {
+        int mid_point = MID_POINTS[dataset];
+        for (int i=0; i<n; i++)
+        {
+            std::iota(indexset.begin(), indexset.begin() + n/2, 0);
+            std::iota(indexset.begin() + n/2, indexset.end(), mid_point);
+        }
+    }
+
 
     // Grpah kernel matrix
-    matrix<double> kernel_matrix(n, n);
+    ublas::matrix<double> kernel_matrix(n, n);
 
     int finished(0), prev(0);
     int total = (n*(n+1))/2;

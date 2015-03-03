@@ -15,7 +15,7 @@ class vtKernel
 */
 {
     public :
-        vtKernel(string ipath);
+        vtKernel(string ipath, double lambda, int maxLength, bool useSent=false);
         virtual double sentenceKernel(Graph* graph1, Graph* graph2)=0;
         double docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2);
         //~vtKernel();
@@ -25,6 +25,10 @@ class vtKernel
         double _deltaKernel(string& word1, string& word2);
         double _laplacianKernel(ublas::vector<double>& emb1, ublas::vector<double>& emb2);
         unordered_map <string, ublas::vector<double>> _embedding;
+        double _lambda;
+        int _maxLength;
+        bool _useSent;
+        ublas::vector<double> _sent_vector;
 };
 
 
