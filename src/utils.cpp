@@ -1,7 +1,7 @@
 #include "main.h"
 #include "vtKernel.h"
 #include "rwKernel.h"
-#include "stringKernel.h"
+#include "strKernel.h"
 #include "pstKernel.h"
 #include "bstKernel.h"
 #include <boost/numeric/ublas/matrix_proxy.hpp>
@@ -35,24 +35,3 @@ double factorial(int n)
     else return double(n) * factorial(n-1);
 };
 
-/*
-vtKernel* kernelChooser(char kernelName, string ipath, double lambda, int maxLength, bool useSent)
-{
-    switch(kernelName)
-    {
-        case 'b':
-            auto kernel = new bstKernel(ipath, lambda, maxLength, useSent);
-            return kernel;
-        case 's':
-            auto kernel = new stringKernel(ipath, lambda, maxLength, useSent);
-            return kernel;
-        case 'p':
-            auto kernel = new pstKernel(ipath, lambda, maxLength, useSent);
-            return kernel;
-        case 'r':
-            auto kernel = new rwKernel(ipath, lambda, maxLength, useSent);
-            return kernel;
-    }
-}
-
-*/

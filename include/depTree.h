@@ -1,7 +1,7 @@
 #ifndef DEPTREE_H
 #define DEPTREE_H
 
-#include <main.h>
+#include "main.h"
 
 using namespace std;
 

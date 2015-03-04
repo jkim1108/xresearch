@@ -21,7 +21,7 @@ double sstKernel::K(Graph* graph1, Graph* graph2, int q, int i, int j)
     for (int s=0; s<i; s++)
     {
         sum += _lambda * _lambda * C(graph1, graph2, q-1, s-1, j-1,
-                this->_lexicalKernel(graph1->labelList[s], graph2->labelList[j]));
+                this->_wordKernel(graph1->labelList[s], graph2->labelList[j]));
     }
     return sum;
 };
@@ -60,7 +60,7 @@ double sstKernel::Cp(Graph* graph1, Graph* graph2, int q, int r, int i, int j)
 
     else
     {
-        return _lambda * _lambda * this->_lexicalKernel(graph1->labelList[i], graph2->labelList[j]) *
+        return _lambda * _lambda * this->_wordKernel(graph1->labelList[i], graph2->labelList[j]) *
                 C(graph1, graph2, q-1, i-1, j-1) + _lambda * Cp(graph1, graph2, q, r, i, j-1);
     }
 }

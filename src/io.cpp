@@ -167,21 +167,21 @@ unordered_map<string, ublas::vector<double>> loadEmbedding(string path)
 
 }
 
-void writeToCsv(ublas::matrix<double>& kernel_matrix, string path)
+void writeToCsv(ublas::matrix<double>& kernelMatrix, string path)
 /*
     Write the final output in numpy's to_csv format
 */
 {
-    int n = kernel_matrix.size1();
+    int n = kernelMatrix.size1();
     ofstream ofile(path);
 
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n-1; j++)
         {
-            ofile << kernel_matrix(i, j) << " ";
+            ofile << kernelMatrix(i, j) << " ";
         }
-        ofile << kernel_matrix(i, n-1) << endl;
+        ofile << kernelMatrix(i, n-1) << endl;
     }
     ofile.close();
 }

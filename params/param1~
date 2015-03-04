@@ -1,0 +1,7 @@
+dataset:metaphor
+kernelType:bst
+useDT:1
+lambda:0.5
+maxLength:3
+n:20
+useSent:0

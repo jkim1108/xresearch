@@ -70,7 +70,6 @@ depTree::depTree(Graph* graph)
     }
 };
 
-
 std::vector<depTree*> loadDepTree(std::vector<Graph*> graphs)
 /*
     Helper function converting the vec of Graphs to vec of depTrees

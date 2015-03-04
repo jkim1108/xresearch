@@ -10,39 +10,6 @@ using namespace boost::numeric;
 
 rwKernel::rwKernel(string ipath, double lambda, int maxLength, bool useSent) : vtKernel(ipath, lambda, maxLength, useSent){}
 
-double rwKernel::_sentimentKernel(string& word1, string& word2)
-/*
-    Laplacian kernel for the senitment similarity between two words
-*/
-{
-    if (word1 == word2)
-    {
-        return 1.;
-    }
-
-    ublas::vector<double> emb1 = _embedding[word1];
-    ublas::vector<double> emb2 = _embedding[word2];
-
-    if (!emb1.size() || !emb2.size())
-    {
-        return 0.;
-    }
-
-    else
-    {
-        ublas::vector<double> diff = emb1 - emb2;
-        return exp(-abs(inner_prod(diff, _sent_vector)));
-    }
-};
-
-double rwKernel::_wordKernel(string& word1, string& word2)
-/*
-    Actual word kernel used for the product adjacency matrix
-*/
-{
-    return this->_sentimentKernel(word1, word2) * this->_lexicalKernel(word1, word2);
-}
-
 void rwKernel::_makeProductAdjMatrix(ublas::compressed_matrix<double>& adjMatrix, Graph* graph1, Graph* graph2)
 /*
     Make an adjacency matrix for the product graph

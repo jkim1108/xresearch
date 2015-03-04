@@ -1,4 +1,6 @@
+#include "main.h"
 #include "vtKernel.h"
+
 #include <iostream>
 #include <algorithm>
 #include <cmath>
@@ -29,6 +31,10 @@ vtKernel::~vtKernel()
     delete &_embedding;
 };
 */
+double vtKernel::sentenceKernel(depTree* graph1, depTree* graph2)
+{
+    return 0;
+}
 
 double vtKernel::docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
 /*
@@ -55,6 +61,18 @@ double vtKernel::_deltaKernel(string& word1, string& word2)
     return (word1 == word2);
 }
 
+double vtKernel::_wordKernel(string& word1, string& word2)
+{
+    if (not _useSent)
+    {
+        return _lexicalKernel(word1, word2);
+    }
+    else
+    {
+        return _lexicalKernel(word1, word2) * _sentimentKernel(word1, word2);
+    }
+}
+
 double vtKernel::_lexicalKernel(string& word1, string& word2)
 /*
     Laplacian kernel for the lexical similarity between two words
@@ -64,22 +82,25 @@ double vtKernel::_lexicalKernel(string& word1, string& word2)
     {
         return 1.;
     }
+    return _laplacianKernel(_embedding[word1], _embedding[word2], 10.0);
+}
 
+double vtKernel::_sentimentKernel(string& word1, string& word2)
+{
     ublas::vector<double> emb1 = _embedding[word1];
     ublas::vector<double> emb2 = _embedding[word2];
-
     if (!emb1.size() || !emb2.size())
     {
-        return 0.;
+        return 1.;
     }
     else
     {
         ublas::vector<double> diff = emb1 - emb2;
-        return exp(-.1 * norm_1(diff));
+        return exp(-abs(ublas::inner_prod(diff, _sent_vector)));
     }
-}
+};
 
-double vtKernel::_laplacianKernel(ublas::vector<double>& emb1, ublas::vector<double>& emb2)
+double vtKernel::_laplacianKernel(ublas::vector<double>& emb1, ublas::vector<double>& emb2, double sigma)
 {
     if (!emb1.size() || !emb2.size())
     {
@@ -88,9 +109,7 @@ double vtKernel::_laplacianKernel(ublas::vector<double>& emb1, ublas::vector<dou
     else
     {
         ublas::vector<double> diff = emb1 - emb2;
-        return exp(-.1 * norm_1(diff));
+        return exp(-norm_1(diff)/sigma);
     }
 }
-;
-
 

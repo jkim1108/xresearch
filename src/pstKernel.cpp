@@ -32,7 +32,7 @@ double pstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j
     }
     else
     {
-        multi *= _lambda * _lexicalKernel(graph1->labelList[i], graph2->labelList[j]);
+        multi *= _lambda * _wordKernel(graph1->labelList[i], graph2->labelList[j]);
         pre += multi;
         return C(graph1, graph2, i+1, j+1, l-1, pre);
     }
@@ -72,13 +72,13 @@ double pstKernel::C(depTree* dt1, depTree* dt2, int i, int j, int l)
 
     else if (l == 0)
     {
-        return this->_lexicalKernel(dt1->nodeList[i]->label, dt2->nodeList[j]->label);
+        return this->_wordKernel(dt1->nodeList[i]->label, dt2->nodeList[j]->label);
     }
 
     else
     {
         double sum = 0.;
-        double cur = this->_lexicalKernel(dt1->nodeList[i]->label, dt2->nodeList[j]->label);
+        double cur = this->_wordKernel(dt1->nodeList[i]->label, dt2->nodeList[j]->label);
         for (auto child1:dt1->nodeList[i]->children)
         {
             for (auto child2:dt2->nodeList[j]->children)
