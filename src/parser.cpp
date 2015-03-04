@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 
-string PATH = "/home/jonghoon/polytechnique/xresearch/";
+string PATH = "/home/kim/xresearch/";
 
 // Index where the flag value changes
 

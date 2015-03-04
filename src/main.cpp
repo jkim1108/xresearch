@@ -19,17 +19,14 @@
 using namespace std;
 using namespace boost::numeric;
 
-int main()//int argc, char* argv[])
+int main(int argc, char* argv[])
 {
-//    Options opt = getOptions(argv[1]);
-
     auto t1 = clock();
-    string argv = "/home/jonghoon/polytechnique/xresearch/params/01";
-    Options opt = getOptions(argv);
-
+    Options opt = getOptions(argv[1]);
     string ipath = getInputPath(opt.dataset);
-    string opath = getOutputPath(argv);
-
+    string opath = getOutputPath(argv[1]);
+    
+    cout << opt.dataset << endl;
     vtKernel* model = kernelChooser(opt);
     auto graphs = loadGraphs(ipath);
     if (opt.useDT)
