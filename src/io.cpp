@@ -164,7 +164,24 @@ unordered_map<string, ublas::vector<double>> loadEmbedding(string path)
         result[words[i]] = embeddings[i];
     }
     return result;
+}
 
+ublas::vector<double> loadSentVec(string path)
+{
+    std::ifstream infile(path + "vec.txt");
+    string line;
+    string temp;
+    getline(infile, line);
+    ublas::vector<double> sentVec(300);
+    std::stringstream linestream(line);
+    int ind = 0;
+
+    while (getline(linestream, temp, ','))
+    {
+        sentVec[ind] = std::stod(temp);
+        ind++;
+    }
+    return sentVec;
 }
 
 void writeToCsv(ublas::matrix<double>& kernelMatrix, string path)

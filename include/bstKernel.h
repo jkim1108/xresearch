@@ -30,7 +30,7 @@ class bstKernel : public vtKernel
             double length;
         };
 
-        bstKernel(string ipath, double lambda, int maxLength, bool useSent, double sigma1, double sigma2);
+        bstKernel(Options opt);
         friend std::ostream& operator<< (std::ostream& stream, const bstKernel& bk);
         double sentenceKernel(Graph* graph1, Graph* graph2);
         double sentenceKernel(depTree* dt1, depTree* dt2);

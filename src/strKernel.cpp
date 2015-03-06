@@ -1,8 +1,7 @@
 #include "strKernel.h"
 
-strKernel::strKernel(string ipath, double lambda, int maxLength,
-                    bool useSent, double sigma1, double sigma2) :
-                    vtKernel(ipath, lambda, maxLength, useSent, sigma1, sigma2)
+strKernel::strKernel(Options opt) :
+                    vtKernel(opt)
                     {}
 
 double strKernel::sentenceKernel(Graph* graph1, Graph* graph2)

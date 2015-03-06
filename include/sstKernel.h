@@ -10,7 +10,7 @@ class sstKernel : public vtKernel
 */
 {
     public:
-        sstKernel(string ipath, double lambda, int maxLength, bool useSent, double sigma1, double sigma2);
+        sstKernel(Options opt);
         double sentenceKernel(Graph* graph1, Graph* graph2);
 
     protected:

@@ -51,6 +51,10 @@ Options getOptions(string paramFile)
         {
             opt.useSent = atoi(optionValue.c_str());
         }
+        else if (optionType=="useSWN")
+        {
+            opt.useSWN = atoi(optionValue.c_str());
+        }
         else if (optionType=="sigma1")
         {
             opt.sigma1 = atof(optionValue.c_str());
@@ -87,23 +91,21 @@ string getOutputPath(string filepath)
 vtKernel* kernelChooser(Options opt)
 {
     vtKernel* kernel;
-    string ipath = getInputPath(opt.dataset);
-
     if (opt.kernelType=="bst")
     {
-        kernel = new bstKernel(ipath, opt.lambda, opt.maxLength, opt.useSent, opt.sigma1, opt.sigma2);
+        kernel = new bstKernel(opt);
     }
     else if (opt.kernelType=="str")
     {
-        kernel = new strKernel(ipath, opt.lambda, opt.maxLength, opt.useSent, opt.sigma1, opt.sigma2);
+        kernel = new strKernel(opt);
     }
     else if (opt.kernelType=="pst")
     {
-        kernel = new pstKernel(ipath, opt.lambda, opt.maxLength, opt.useSent, opt.sigma1, opt.sigma2);
+        kernel = new pstKernel(opt);
     }
     else if (opt.kernelType=="rw")
     {
-        kernel = new rwKernel(ipath, opt.lambda, opt.maxLength, opt.useSent, opt.sigma1, opt.sigma2);
+        kernel = new rwKernel(opt);
     }
     else
     {

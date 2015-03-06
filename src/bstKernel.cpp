@@ -1,8 +1,7 @@
 #include "bstKernel.h"
 
-bstKernel::bstKernel(string ipath, double lambda, int maxLength,
-                    bool useSent, double sigma1, double sigma2) :
-                    vtKernel(ipath, lambda, maxLength, useSent, sigma1, sigma2)
+bstKernel::bstKernel(Options opt) :
+                    vtKernel(opt)
                     {}
 
 std::ostream& operator<< (std::ostream& stream, const bstKernel& bk)

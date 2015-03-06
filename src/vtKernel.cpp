@@ -1,5 +1,6 @@
 #include "main.h"
 #include "vtKernel.h"
+#include "parser.h"
 
 #include <iostream>
 #include <algorithm>
@@ -9,19 +10,29 @@
 using namespace boost::numeric;
 using namespace std;
 
-vtKernel::vtKernel(string ipath, double lambda, int maxLength, bool useSent, double sigma1, double sigma2)
+vtKernel::vtKernel(Options opt)
 /*
     Assign the embedding dictionary and sentiment vector which shall be used for
     the computation of the kernel
 */
 {
-    _embedding = loadEmbedding(ipath);
-    _lambda = lambda;
-    _maxLength = maxLength;
-    _useSent = useSent;
-    _sent_vector = _embedding["good"] - _embedding["bad"];
-    _sigma1 = sigma1;
-    _sigma2 = sigma2;
+    _embedding = loadEmbedding(getInputPath(opt.dataset));
+    _lambda = opt.lambda;
+    _maxLength = opt.maxLength;
+    _useSent = opt.useSent;
+    _useSWN = opt.useSWN;
+    string PATH = "/home/kim/xresearch/";
+
+    if (_useSWN)
+    {
+        _sent_vector = loadSentVec(PATH);
+    }
+    else
+    {
+        _sent_vector = _embedding["good"] - _embedding["bad"];
+    }
+    _sigma1 = opt.sigma1;
+    _sigma2 = opt.sigma2;
 }
 
 /*

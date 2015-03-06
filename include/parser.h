@@ -10,19 +10,6 @@
 
 using namespace std;
 
-struct Options
-{
-    string dataset;
-    string kernelType;
-    double lambda;
-    int maxLength;
-    int dataSize;
-    bool useDT;
-    bool useSent;
-    double sigma1;
-    double sigma2;
-};
-
 vtKernel* kernelChooser(Options opt);
 Options getOptions(string paramFile);
 std::vector<int> getIndexSet(Options opt, int dataSize);

@@ -16,7 +16,7 @@ class vtKernel
 */
 {
     public :
-        vtKernel(string ipath, double lambda, int maxLength, bool useSent, double sigma1, double sigma2);
+        vtKernel(Options opt);
         virtual double sentenceKernel(Graph* graph1, Graph* graph2)=0;
         virtual double sentenceKernel(depTree* graph1, depTree* graph2);
         double docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2);
@@ -59,6 +59,7 @@ class vtKernel
         double _lambda;
         int _maxLength;
         bool _useSent;
+        bool _useSWN;
         ublas::vector<double> _sent_vector;
         double _sigma1;
         double _sigma2;

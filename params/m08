@@ -1,9 +1,10 @@
 dataset:metaphor
 kernelType:str
 useDT:0
-lambda:0.8
-maxLength:0
+lambda:0.3
+maxLength:4
 dataSize:0
-useSent:0
+useSent:1
+useSWN:0
 sigma1:10
 sigma2:1

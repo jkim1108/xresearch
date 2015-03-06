@@ -20,6 +20,20 @@ struct Graph
     bool flag;
 };
 
+struct Options
+{
+    string dataset;
+    string kernelType;
+    double lambda;
+    int maxLength;
+    int dataSize;
+    bool useDT;
+    bool useSent;
+    bool useSWN;
+    double sigma1;
+    double sigma2;
+};
+
 // Utility functions
 pair <int, int> vectorToPair(std::vector<int> input);
 double factorial(int n);
@@ -28,6 +42,7 @@ double factorial(int n);
 std::vector<std::vector<Graph*>> load_doc_graphs(std::vector<Graph*> graphs);
 std::vector<Graph*> loadGraphs(string path);
 unordered_map<string, ublas::vector<double>> loadEmbedding(string path);
+ublas::vector<double> loadSentVec(string path);
 void writeToCsv(ublas::matrix<double>& kernelMatrix, string path);
 
 #endif //MAIN_H
