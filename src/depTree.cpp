@@ -68,7 +68,7 @@ depTree::depTree(Graph* graph)
         node->children = children_map[i];
         nodeList.push_back(node);
     }
-};
+}
 
 std::vector<depTree*> loadDepTree(std::vector<Graph*> graphs)
 /*

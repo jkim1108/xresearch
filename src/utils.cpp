@@ -23,7 +23,7 @@ pair<int, int> vectorToPair(std::vector<int> input)
     res.first = input[0];
     res.second = input[1];
     return res;
-};
+}
 
 double factorial(int n)
 /*
@@ -33,5 +33,5 @@ double factorial(int n)
     assert(n>=0);
     if (n==0) return 1.;
     else return double(n) * factorial(n-1);
-};
+}
 

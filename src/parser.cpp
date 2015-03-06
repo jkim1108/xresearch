@@ -51,6 +51,14 @@ Options getOptions(string paramFile)
         {
             opt.useSent = atoi(optionValue.c_str());
         }
+        else if (optionType=="sigma1")
+        {
+            opt.sigma1 = atof(optionValue.c_str());
+        }
+        else if (optionType=="sigma2")
+        {
+            opt.sigma2 = atof(optionValue.c_str());
+        }
         else if (optionType=="")
         {
             continue;
@@ -83,19 +91,19 @@ vtKernel* kernelChooser(Options opt)
 
     if (opt.kernelType=="bst")
     {
-        kernel = new bstKernel(ipath, opt.lambda, opt.maxLength, opt.useSent);
+        kernel = new bstKernel(ipath, opt.lambda, opt.maxLength, opt.useSent, opt.sigma1, opt.sigma2);
     }
     else if (opt.kernelType=="str")
     {
-        kernel = new strKernel(ipath, opt.lambda, opt.maxLength, opt.useSent);
+        kernel = new strKernel(ipath, opt.lambda, opt.maxLength, opt.useSent, opt.sigma1, opt.sigma2);
     }
     else if (opt.kernelType=="pst")
     {
-        kernel = new pstKernel(ipath, opt.lambda, opt.maxLength, opt.useSent);
+        kernel = new pstKernel(ipath, opt.lambda, opt.maxLength, opt.useSent, opt.sigma1, opt.sigma2);
     }
     else if (opt.kernelType=="rw")
     {
-        kernel = new rwKernel(ipath, opt.lambda, opt.maxLength, opt.useSent);
+        kernel = new rwKernel(ipath, opt.lambda, opt.maxLength, opt.useSent, opt.sigma1, opt.sigma2);
     }
     else
     {

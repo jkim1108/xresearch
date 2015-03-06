@@ -19,6 +19,8 @@ struct Options
     int dataSize;
     bool useDT;
     bool useSent;
+    double sigma1;
+    double sigma2;
 };
 
 vtKernel* kernelChooser(Options opt);
@@ -31,12 +33,12 @@ template <typename T>
 std::vector<T> getTestSet(Options opt, std::vector<T> graphs)
 {
     map <string, int> MID_POINTS
-        {
-            {"sentiment", 5331},
-            {"metaphor", 1385},
-            {"subjectivity", 5000},
-            {"books", 997}
-        };
+    {
+        {"sentiment", 5331},
+        {"metaphor", 1385},
+        {"subjectivity", 5000},
+        {"books", 997}
+    };
 
     if (opt.dataSize)
     {

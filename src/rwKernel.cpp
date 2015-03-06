@@ -8,7 +8,10 @@
 using namespace std;
 using namespace boost::numeric;
 
-rwKernel::rwKernel(string ipath, double lambda, int maxLength, bool useSent) : vtKernel(ipath, lambda, maxLength, useSent){}
+rwKernel::rwKernel(string ipath, double lambda, int maxLength,
+                    bool useSent, double sigma1, double sigma2) :
+                    vtKernel(ipath, lambda, maxLength, useSent, sigma1, sigma2)
+                    {}
 
 void rwKernel::_makeProductAdjMatrix(ublas::compressed_matrix<double>& adjMatrix, Graph* graph1, Graph* graph2)
 /*

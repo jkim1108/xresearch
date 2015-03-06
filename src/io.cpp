@@ -121,7 +121,7 @@ std::vector<Graph*> loadGraphs(string path)
     }
 
     return graphs;
-};
+}
 
 unordered_map<string, ublas::vector<double>> loadEmbedding(string path)
 /*

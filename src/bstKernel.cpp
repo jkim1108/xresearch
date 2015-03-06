@@ -1,6 +1,9 @@
 #include "bstKernel.h"
 
-bstKernel::bstKernel(string ipath, double lambda, int maxLength, bool useSent) : vtKernel(ipath, lambda, maxLength, useSent){}
+bstKernel::bstKernel(string ipath, double lambda, int maxLength,
+                    bool useSent, double sigma1, double sigma2) :
+                    vtKernel(ipath, lambda, maxLength, useSent, sigma1, sigma2)
+                    {}
 
 std::ostream& operator<< (std::ostream& stream, const bstKernel& bk)
 {
@@ -42,7 +45,7 @@ double bstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j
         preComputed newPre;
         newPre.baryCentre1 = _updateBaryCentre(pre.baryCentre1, pre.length, _embedding[graph1->labelList[i]]);
         newPre.baryCentre2 = _updateBaryCentre(pre.baryCentre2, pre.length, _embedding[graph2->labelList[j]]);
-        newPre.value = pre.value + _laplacianKernel(newPre.baryCentre1, newPre.baryCentre2, 10.) * pow(_lambda, pre.length);
+        newPre.value = pre.value + _wordKernel(newPre.baryCentre1, newPre.baryCentre2) * pow(_lambda, pre.length);
         newPre.length = pre.length + 1;
         return C(graph1, graph2, i+1, j+1, l-1, newPre);
     }
@@ -70,7 +73,7 @@ double bstKernel::sentenceKernel(depTree* dt1, depTree* dt2)
         }
     }
     return sum;
-};
+}
 
 double bstKernel::C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre)
 {
@@ -78,7 +81,7 @@ double bstKernel::C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed
     {
         auto baryCentre1 = _updateBaryCentre(pre.baryCentre1, pre.length, _embedding[dt1->nodeList[i]->label]);
         auto baryCentre2 = _updateBaryCentre(pre.baryCentre2, pre.length, _embedding[dt2->nodeList[j]->label]);
-        return _laplacianKernel(baryCentre1, baryCentre2, 10.) * pow(_lambda, pre.length);
+        return _wordKernel(baryCentre1, baryCentre2) * pow(_lambda, pre.length);
     }
 
     else
@@ -86,7 +89,7 @@ double bstKernel::C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed
         preComputed newPre;
         newPre.baryCentre1 = _updateBaryCentre(pre.baryCentre1, pre.length, _embedding[dt1->nodeList[i]->label]);
         newPre.baryCentre2 = _updateBaryCentre(pre.baryCentre2, pre.length, _embedding[dt2->nodeList[j]->label]);
-        double sum = _laplacianKernel(newPre.baryCentre1, newPre.baryCentre2, 10.) * pow(_lambda, pre.length);
+        double sum = _wordKernel(newPre.baryCentre1, newPre.baryCentre2) * pow(_lambda, pre.length);
         newPre.length = pre.length + 1;
 
         for (auto child1:dt1->nodeList[i]->children)

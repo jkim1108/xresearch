@@ -1,0 +1,9 @@
+dataset:metaphor
+kernelType:str
+useDT:0
+lambda:0.8
+maxLength:0
+dataSize:0
+useSent:0
+sigma1:10
+sigma2:1

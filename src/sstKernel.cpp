@@ -1,6 +1,9 @@
 #include "sstKernel.h"
 
-sstKernel::sstKernel(string ipath, double lambda, int maxLength, bool useSent) : vtKernel(ipath, lambda, maxLength, useSent){}
+sstKernel::sstKernel(string ipath, double lambda, int maxLength,
+                    bool useSent, double sigma1, double sigma2) :
+                    vtKernel(ipath, lambda, maxLength, useSent, sigma1, sigma2)
+                    {}
 
 double sstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
 {
@@ -12,7 +15,7 @@ double sstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
         sum += K(graph1, graph2, q, m, n);
     }
     return sum;
-};
+}
 
 
 double sstKernel::K(Graph* graph1, Graph* graph2, int q, int i, int j)
@@ -24,7 +27,7 @@ double sstKernel::K(Graph* graph1, Graph* graph2, int q, int i, int j)
                 this->_wordKernel(graph1->labelList[s], graph2->labelList[j]));
     }
     return sum;
-};
+}
 
 double sstKernel::C(Graph* graph1, Graph* graph2, int q, int i, int j, double a)
 {

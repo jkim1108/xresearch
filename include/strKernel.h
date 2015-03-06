@@ -12,7 +12,7 @@
 class strKernel : public vtKernel
 {
     public:
-        strKernel(string ipath, double lambda, int maxLength, bool useSent);
+        strKernel(string ipath, double lambda, int maxLength, bool useSent, double sigma1, double sigma2);
         double sentenceKernel(Graph* graph1, Graph* graph2);
     protected:
 };

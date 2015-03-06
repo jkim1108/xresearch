@@ -14,7 +14,7 @@ class pstKernel : public vtKernel
 */
 {
     public:
-        pstKernel(string ipath, double lambda, int maxLength, bool useSent=false);
+        pstKernel(string ipath, double lambda, int maxLength, bool useSent, double sigma1, double sigma2);
         double sentenceKernel(Graph* graph1, Graph* graph2);
         double sentenceKernel(depTree* dt1, depTree* dt2);
 
