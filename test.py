@@ -5,11 +5,12 @@ import sys
 import csv
 import sklearn
 from multiprocessing import Pool
+from sklearn.cross_validation import StratifiedKFold
 from sklearn.svm import SVC
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.metrics import accuracy_score
 
-def test_index(filename):
+def get_index(filename):
     dataset = filename.split('/')[-1][0]
 
     V1 = {'m':1397, 'p':4000, 's':4000}
@@ -22,20 +23,48 @@ def test_index(filename):
     flags = np.array([1] * mp + [0] * (n-mp))
 
     v1 = V1[dataset]
-    t1 = int(v1 * 0.8)
     v2 = V2[dataset]
-    t2 = int((v2-mp) * 0.8) + mp
 
-    train_index = np.concatenate((np.arange(t1), np.arange(mp, t2)))
-    val_index = np.concatenate((np.arange(t1, v1), np.arange(t2, v2)))
+    train_index = np.concatenate((np.arange(v1), np.arange(mp, v2)))
     test_index = np.concatenate((np.arange(v1, mp), np.arange(v2, n))) 
-    return flags, train_index, val_index, test_index
+    return flags, train_index, test_index
 
-def model_validation(filename):
-    flags, train_index, val_index, _ =  test_index(filename)
+def model_test(filename):
+    flags, train_index, test_index =  get_index(filename)
     kernel_matrix = np.loadtxt(filename)      
 
-    res = test(kernel_matrix, flags, train_index, val_index)
+    res = test(kernel_matrix, flags, train_index, test_index)
+    opt = []
+
+    param_filename = filename.split('/')[-1][:-4]
+    with open('/home/kim/params/{}'.format(param_filename)) as pf:
+        reader = csv.reader(pf, delimiter=':')
+        reader.next()
+        for line in reader:
+            opt.append(line[1])
+
+    output = " ".join(map(str, [param_filename] + res + opt))
+    print output
+
+    outputf = '/home/kim/score/{}'.format(param_filename)
+    with open(outputf, 'w') as f:
+        f.write(output)
+        f.close()
+
+def model_validation(filename):
+    flags, indexset, _ =  get_index(filename)
+    flags = flags[indexset]
+    full_matrix = np.loadtxt(filename)
+    kernel_matrix = full_matrix[indexset][:,indexset]
+    del full_matrix
+
+    kfold = StratifiedKFold(flags, 3)
+    res = []
+
+    for train_index, test_index in kfold: 
+        res.append(test(kernel_matrix, flags, train_index, test_index))
+    res = np.array(res)
+    res = list(np.average(res, axis = 0))
     opt = []
 
     param_filename = filename.split('/')[-1][:-4]

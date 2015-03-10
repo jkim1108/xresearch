@@ -97,7 +97,7 @@ double vtKernel::_lexicalKernel(ublas::vector<double>& emb1, ublas::vector<doubl
     else
     {
         auto diff = emb1 - emb2;
-        return exp(-norm_1(diff)/_sigma1);
+        return exp(-norm_2(diff)/_sigma1);
     }
 }
 
