@@ -20,6 +20,7 @@ class vtKernel
         virtual double sentenceKernel(Graph* graph1, Graph* graph2)=0;
         virtual double sentenceKernel(depTree* graph1, depTree* graph2);
         double docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2);
+        double docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc2);
         //~vtKernel();
 
     protected :

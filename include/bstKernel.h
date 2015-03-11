@@ -27,17 +27,16 @@ class bstKernel : public vtKernel
             ublas::vector<double> baryCentre1;
             ublas::vector<double> baryCentre2;
             double value;
-            double length;
+            int length;
         };
 
         bstKernel(Options opt);
-        friend std::ostream& operator<< (std::ostream& stream, const bstKernel& bk);
         double sentenceKernel(Graph* graph1, Graph* graph2);
         double sentenceKernel(depTree* dt1, depTree* dt2);
 
     protected:
-        double C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre);
-        double C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre);
+        virtual double C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre);
+        virtual double C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre);
         inline ublas::vector<double> _updateBaryCentre(ublas::vector<double>& baryCentre, int length, ublas::vector<double>& newVector)
         {
             if ((length==0) || (baryCentre.size()==0))
