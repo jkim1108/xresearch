@@ -83,3 +83,14 @@ std::vector<depTree*> loadDepTree(std::vector<Graph*> graphs)
     }
     return output;
 }
+
+std::vector<std::vector<depTree*>> getDocDTs(std::vector<std::vector<Graph*>> docGraphs)
+{
+    std::vector<std::vector<depTree*>> docDT;
+    for (auto graphs:docGraphs)
+    {
+        docDT.push_back(loadDepTree(graphs));
+    }
+    return docDT;
+}
+

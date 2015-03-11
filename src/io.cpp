@@ -15,18 +15,18 @@ std::vector<std::vector<Graph*>> getDocGraphs(std::vector<Graph*> graphs)
 */
 {
     std::vector<std::vector<Graph*>> res;
-    std::vector<Graph*> doc_graph;
+    std::vector<Graph*> docGraph;
 
     for (auto graph : graphs){
         string first = graph->labelList[0];
         if (first.find("###")==0)
         {
-            res.push_back(doc_graph);
-            doc_graph.clear();
+            res.push_back(docGraph);
+            docGraph.clear();
         }
         else
         {
-            doc_graph.push_back(graph);
+            docGraph.push_back(graph);
         }
     }
     return res;
@@ -154,7 +154,8 @@ unordered_map<string, ublas::vector<double>> loadEmbedding(string path)
             embedding[ind] = std::stod(temp);
             ind++;
         }
-        embeddings.push_back(embedding);
+        auto embedding2 = embedding/ublas::norm_2(embedding);
+        embeddings.push_back(embedding2);
     }
 
     unordered_map <string, ublas::vector<double>> result;
