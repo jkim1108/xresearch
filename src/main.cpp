@@ -25,21 +25,21 @@ int main(int argc, char* argv[])
     Options opt = getOptions(argv[1]);
     string ipath = getInputPath(opt.dataset);
     string opath = getOutputPath(argv[1]);
-    
+    std::vector<string> blitzer({"book", "kitchen_housewares", "dvd", "electronics"});
+
     cout << opt.dataset << endl;
     vtKernel* model = kernelChooser(opt);
     auto graphs = loadGraphs(ipath);
     if (opt.useDT)
     {
         auto dts = loadDepTree(graphs);
-        auto testset = getTestSet<depTree*>(opt, dts);
-        auto kernelMatrix = getKernelMatrix<depTree*>(model, testset);
+        bool useDoc = std::find(blitzer.begin(), blitzer.end(), opt.dataset)==blitzer.end();
+        auto kernelMatrix = getKernelMatrix<depTree*>(model, dts, useDoc);
         writeToCsv(kernelMatrix, opath);
     }
     else
     {
-        auto testset = getTestSet<Graph*>(opt, graphs);
-        auto kernelMatrix = getKernelMatrix<Graph*>(model, testset);
+        auto kernelMatrix = getKernelMatrix<Graph*>(model, dts, useDoc);
         writeToCsv(kernelMatrix, opath);
     }
     auto t2 = clock();

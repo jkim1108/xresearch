@@ -154,8 +154,7 @@ unordered_map<string, ublas::vector<double>> loadEmbedding(string path)
             embedding[ind] = std::stod(temp);
             ind++;
         }
-        auto embedding2 = embedding/ublas::norm_2(embedding);
-        embeddings.push_back(embedding2);
+        embeddings.push_back(embedding);
     }
 
     unordered_map <string, ublas::vector<double>> result;

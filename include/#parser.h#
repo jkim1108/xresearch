@@ -45,7 +45,7 @@ std::vector<T> getTestSet(Options opt, std::vector<T> graphs)
 }
 
 template <typename T>
-ublas::matrix<double> getKernelMatrix(vtKernel* model, std::vector<T> testset, bool useDoc)
+ublas::matrix<double> getKernelMatrix(vtKernel* model, std::vector<T> testset)
 {
     int n = testset.size();
 
@@ -63,14 +63,7 @@ ublas::matrix<double> getKernelMatrix(vtKernel* model, std::vector<T> testset, b
     {
         for (j=i; j<n; j++)
         {
-            if (useDoc)
-            {
-                kernelMatrix(i, j) = model->docKernel(testset[i], testset[j]);
-            }
-            else
-            {
-                kernelMatrix(i, j) = model->sentenceKernel(testset[i], testset[j]);
-            }
+            kernelMatrix(i, j) = model->sentenceKernel(testset[i], testset[j]);
             kernelMatrix(j, i) = kernelMatrix(i, j);
         }
 
