@@ -1,4 +1,4 @@
-dataset:metaphor
+dataset:sentiment
 kernelType:str
 useDT:0
 lambda:0.3
