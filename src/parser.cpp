@@ -91,9 +91,14 @@ string getOutputPath(string filepath)
 vtKernel* kernelChooser(Options opt)
 {
     vtKernel* kernel;
+
     if (opt.kernelType=="bst")
     {
         kernel = new bstKernel(opt);
+    }
+    else if (opt.kernelType=="vst")
+    {
+        kernel = new vstKernel(opt);
     }
     else if (opt.kernelType=="str")
     {

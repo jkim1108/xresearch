@@ -5,6 +5,7 @@
 #include "bstKernel.h"
 #include "strKernel.h"
 #include "rwKernel.h"
+#include "vstKernel.h"
 #include "pstKernel.h"
 #include "main.h"
 
@@ -22,7 +23,7 @@ std::vector<T> getTestSet(Options opt, std::vector<T> graphs)
     map <string, int> MID_POINTS
     {
         {"sentiment", 5331},
-        {"metaphor", 1385},
+        {"metaphor", 1565},
         {"subjectivity", 5000},
         {"books", 997}
     };

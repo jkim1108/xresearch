@@ -27,6 +27,7 @@ struct depTree
 };
 
 std::vector<depTree*> loadDepTree(std::vector<Graph*> graphs);
+std::vector<std::vector<depTree*>> getDocDTs(std::vector<std::vector<Graph*>> docGraphs);
 /*
     Helper function converting the vec of Graphs to vec of depTrees
 */
