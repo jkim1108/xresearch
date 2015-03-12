@@ -113,7 +113,7 @@ double vtKernel::_lexicalKernel(ublas::vector<double>& emb1, ublas::vector<doubl
         if (_useCoSim)
         {
             double cosSim = ublas::inner_prod(emb1, emb2)/(ublas::norm_2(emb1) * ublas::norm_2(emb2));
-            return std::pow((cosSim + 1), 2);
+            return std::pow(0.5*(cosSim + 1), _sigma1);
         }
         else
         {
