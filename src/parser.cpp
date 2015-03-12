@@ -55,6 +55,10 @@ Options getOptions(string paramFile)
         {
             opt.useSWN = atoi(optionValue.c_str());
         }
+        else if (optionType=="useCoSim")
+        {
+            opt.useCoSim = atoi(optionValue.c_str());
+        }
         else if (optionType=="sigma1")
         {
             opt.sigma1 = atof(optionValue.c_str());

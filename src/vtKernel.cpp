@@ -21,6 +21,7 @@ vtKernel::vtKernel(Options opt)
     _maxLength = opt.maxLength;
     _useSent = opt.useSent;
     _useSWN = opt.useSWN;
+    _useCoSim = opt.useCoSim;
     string PATH = "/home/kim/xresearch/";
 
     if (_useSWN)
@@ -109,12 +110,16 @@ double vtKernel::_lexicalKernel(ublas::vector<double>& emb1, ublas::vector<doubl
     }
     else
     {
-        double cosSim = ublas::inner_prod(emb1, emb2)/(ublas::norm_2(emb1) * ublas::norm_2(emb2));
-        return std::pow(0.5*(cosSim + 1), 2);
-    /*
-        auto diff = emb1 - emb2;
-        return exp(-norm_2(diff)/_sigma1);
-    */
+        if (_useCoSim)
+        {
+            double cosSim = ublas::inner_prod(emb1, emb2)/(ublas::norm_2(emb1) * ublas::norm_2(emb2));
+            return std::pow((cosSim + 1), 2);
+        }
+        else
+        {
+            auto diff = emb1 - emb2;
+            return exp(-norm_2(diff)/_sigma1);
+        }
     }
 }
 

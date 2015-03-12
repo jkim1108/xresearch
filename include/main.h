@@ -30,6 +30,7 @@ struct Options
     bool useDT;
     bool useSent;
     bool useSWN;
+    bool useCoSim=false;
     double sigma1;
     double sigma2;
 };

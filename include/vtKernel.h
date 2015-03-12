@@ -61,6 +61,7 @@ class vtKernel
         int _maxLength;
         bool _useSent;
         bool _useSWN;
+        bool _useCoSim;
         ublas::vector<double> _sent_vector;
         double _sigma1;
         double _sigma2;
