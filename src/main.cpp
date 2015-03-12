@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     string ipath = getInputPath(opt.dataset);
     string opath = getOutputPath(argv[1]);
     std::vector<string> blitzer({"book", "kitchen_housewares", "dvd", "electronics"});
-    bool useDoc = std::find(blitzer.begin(), blitzer.end(), opt.dataset)==blitzer.end();
+    bool useDoc = std::find(blitzer.begin(), blitzer.end(), opt.dataset)!=blitzer.end();
 
     cout << opt.dataset << endl;
     vtKernel* model = kernelChooser(opt);

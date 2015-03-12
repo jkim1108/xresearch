@@ -63,7 +63,7 @@ double vtKernel::docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
             res += this->docKernel(graph1, graph2);
         }
     }
-    return res;
+    return res/(doc1.size()*doc2.size());
 }
 
 double vtKernel::docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc2)
@@ -76,7 +76,7 @@ double vtKernel::docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc
             res += this->docKernel(dt1, dt2);
         }
     }
-    return res;
+    return res/(doc1.size()*doc2.size());
 }
 
 double vtKernel::_deltaKernel(string& word1, string& word2)
@@ -140,5 +140,4 @@ double vtKernel::_sentimentKernel(ublas::vector<double>& emb1, ublas::vector<dou
         ublas::vector<double> diff = emb1 - emb2;
         return exp(-abs(ublas::inner_prod(diff, _sent_vector))/_sigma2);
     }
-
 }

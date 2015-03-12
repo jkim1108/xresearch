@@ -120,5 +120,3 @@ vtKernel* kernelChooser(Options opt)
 
     return kernel;
 }
-
-
