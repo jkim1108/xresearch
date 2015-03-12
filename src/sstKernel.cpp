@@ -4,7 +4,7 @@ sstKernel::sstKernel(Options opt) :
                     vtKernel(opt)
                     {}
 
-double sstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
+double sstKernel::docKernel(Graph* graph1, Graph* graph2)
 {
     double sum = 0;
     int n = graph1->labelList.size();

@@ -48,7 +48,7 @@ void rwKernel::_makeProductAdjMatrix(ublas::compressed_matrix<double>& adjMatrix
     }
 }
 
-double rwKernel::sentenceKernel(Graph* graph1, Graph* graph2)
+double rwKernel::docKernel(Graph* graph1, Graph* graph2)
 /*
     Random walk kernel obtained from the common walks between graph1 and graph2
     using the product graph formulation

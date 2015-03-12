@@ -4,7 +4,7 @@ pstKernel::pstKernel(Options opt) :
                     vtKernel(opt)
                     {}
 
-double pstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
+double pstKernel::docKernel(Graph* graph1, Graph* graph2)
 {
     double sum = 0;
     for (unsigned int i=0; i<graph1->labelList.size(); i++)
@@ -40,7 +40,7 @@ double pstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j
     }
 };
 
-double pstKernel::sentenceKernel(depTree* dt1, depTree* dt2)
+double pstKernel::docKernel(depTree* dt1, depTree* dt2)
 {
     double sum = 0;
     for (unsigned int i=0; i<dt1->nodeList.size(); i++)

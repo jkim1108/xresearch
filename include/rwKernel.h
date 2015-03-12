@@ -19,7 +19,7 @@ class rwKernel : public vtKernel
 {
     public:
         rwKernel(Options opt);
-        double sentenceKernel(Graph* graph1, Graph* graph2);
+        double docKernel(Graph* graph1, Graph* graph2);
 
     protected:
         void _makeProductAdjMatrix(ublas::compressed_matrix<double>& adjMatrix, Graph* graph1, Graph* graph2);

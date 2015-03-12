@@ -44,7 +44,7 @@ vtKernel::~vtKernel()
     delete &_embedding;
 };
 */
-double vtKernel::sentenceKernel(depTree* graph1, depTree* graph2)
+double vtKernel::docKernel(depTree* graph1, depTree* graph2)
 {
     return 0;
 }
@@ -60,7 +60,7 @@ double vtKernel::docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
     {
         for (auto graph2 : doc2)
         {
-            res += this->sentenceKernel(graph1, graph2);
+            res += this->docKernel(graph1, graph2);
         }
     }
     return res;
@@ -73,7 +73,7 @@ double vtKernel::docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc
     {
         for (auto dt2 : doc2)
         {
-            res += this->sentenceKernel(dt1, dt2);
+            res += this->docKernel(dt1, dt2);
         }
     }
     return res;

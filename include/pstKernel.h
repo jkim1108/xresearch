@@ -15,8 +15,8 @@ class pstKernel : public vtKernel
 {
     public:
         pstKernel(Options opt);
-        double sentenceKernel(Graph* graph1, Graph* graph2);
-        double sentenceKernel(depTree* dt1, depTree* dt2);
+        double docKernel(Graph* graph1, Graph* graph2);
+        double docKernel(depTree* dt1, depTree* dt2);
 
     protected:
         double C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, double pre=0, double multi=1);

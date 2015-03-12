@@ -13,7 +13,7 @@ class strKernel : public vtKernel
 {
     public:
         strKernel(Options opt);
-        double sentenceKernel(Graph* graph1, Graph* graph2);
+        double docKernel(Graph* graph1, Graph* graph2);
     protected:
 };
 

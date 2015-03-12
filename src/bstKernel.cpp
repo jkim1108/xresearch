@@ -4,7 +4,7 @@ bstKernel::bstKernel(Options opt) :
                     vtKernel(opt)
                     {}
 
-double bstKernel::sentenceKernel(Graph* graph1, Graph* graph2)
+double bstKernel::docKernel(Graph* graph1, Graph* graph2)
 {
     double sum = 0;
     for (unsigned int i=0; i<graph1->labelList.size(); i++)
@@ -45,7 +45,7 @@ double bstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j
     }
 }
 
-double bstKernel::sentenceKernel(depTree* dt1, depTree* dt2)
+double bstKernel::docKernel(depTree* dt1, depTree* dt2)
 {
     double sum = 0;
     for (unsigned int i=0; i<dt1->nodeList.size(); i++)

@@ -39,7 +39,7 @@ pair <int, int> vectorToPair(std::vector<int> input);
 double factorial(int n);
 
 // Functions dealing with IO's
-std::vector<std::vector<Graph*>> load_doc_graphs(std::vector<Graph*> graphs);
+std::vector<std::vector<Graph*>> getDocGraphs(std::vector<Graph*> graphs);
 std::vector<Graph*> loadGraphs(string path);
 unordered_map<string, ublas::vector<double>> loadEmbedding(string path);
 ublas::vector<double> loadSentVec(string path);

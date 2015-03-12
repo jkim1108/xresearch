@@ -11,7 +11,7 @@ class sstKernel : public vtKernel
 {
     public:
         sstKernel(Options opt);
-        double sentenceKernel(Graph* graph1, Graph* graph2);
+        double docKernel(Graph* graph1, Graph* graph2);
 
     protected:
         double K(Graph* graph1, Graph* graph2, int q, int i, int j);
