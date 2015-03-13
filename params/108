@@ -1,0 +1,10 @@
+kernelType:pst
+useDT:1
+lambda:1
+maxLength:5
+dataSize:0
+useSent:0
+useSWN:0
+sigma1:5
+sigma2:1
+useCoSim:1

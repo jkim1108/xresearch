@@ -1,0 +1,4 @@
+for i in $(ls 1??)
+do
+    sed '3s/.*/lambda:1.5/' $i > $((i+12))
+done
