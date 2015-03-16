@@ -58,7 +58,7 @@ double rwKernel::docKernel(Graph* graph1, Graph* graph2)
     SparseMatrix<double> adjMatrix(n1*n2+1, n1*n2+1);
     this->_makeProductAdjMatrix(adjMatrix, graph1, graph2);
 
-    auto accMatrix(adjMatrix);
+    SparseMatrix<double, RowMajor> accMatrix(adjMatrix);
     int i = 0;
 
     double sum = _lambda * adjMatrix.row(0).sum();
