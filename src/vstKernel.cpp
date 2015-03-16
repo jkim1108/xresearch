@@ -45,7 +45,7 @@ double vstKernel::C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed
         if (pre.length)
         {
             newPre.value +=  _wordKernel(pre.baryCentre1, newPre.baryCentre2) * pow(_lambda, pre.length);
-            newPre.value +=  _wordKernel(pre.baryCentre2, newPre.baryCentre2) * pow(_lambda, pre.length);
+            newPre.value +=  _wordKernel(pre.baryCentre2, newPre.baryCentre1) * pow(_lambda, pre.length);
         }
         newPre.length = pre.length + 1;
 

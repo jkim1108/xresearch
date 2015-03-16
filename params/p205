@@ -1,0 +1,11 @@
+dataset:sentiment
+kernelType:pst
+useDT:1
+lambda:1
+maxLength:3
+dataSize:0
+useSent:1
+useSWN:1
+sigma1:5
+sigma2:1
+useCoSim:1

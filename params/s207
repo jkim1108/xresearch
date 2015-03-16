@@ -1,0 +1,11 @@
+dataset:subjectivity
+kernelType:pst
+useDT:0
+lambda:1
+maxLength:3
+dataSize:0
+useSent:0
+useSWN:1
+sigma1:5
+sigma2:1
+useCoSim:1

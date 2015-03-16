@@ -1,6 +1,7 @@
+dataset:sentiment
 kernelType:vst
 useDT:0
-lambda:0.5
+lambda:1
 maxLength:2
 dataSize:0
 useSent:0
