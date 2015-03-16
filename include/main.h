@@ -6,9 +6,11 @@
 #include <boost/numeric/ublas/matrix.hpp>
 #include <unordered_map>
 #include <map>
+#include <Eigen/Dense>
 
 using namespace std;
 using namespace boost::numeric;
+using namespace Eigen;
 
 struct Graph
 /*
@@ -42,8 +44,8 @@ double factorial(int n);
 // Functions dealing with IO's
 std::vector<std::vector<Graph*>> getDocGraphs(std::vector<Graph*> graphs);
 std::vector<Graph*> loadGraphs(string path);
-unordered_map<string, ublas::vector<double>> loadEmbedding(string path);
-ublas::vector<double> loadSentVec(string path);
+unordered_map<string, VectorXd> loadEmbedding(string path);
+VectorXd loadSentVec(string path);
 void writeToCsv(ublas::matrix<double>& kernelMatrix, string path);
 
 #endif //MAIN_H

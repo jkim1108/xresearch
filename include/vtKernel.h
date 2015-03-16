@@ -6,9 +6,10 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <Eigen/Dense>
 
 using namespace std;
-using namespace boost::numeric;
+using namespace Eigen;
 
 class vtKernel
 /*
@@ -36,7 +37,7 @@ class vtKernel
             }
         };
 
-        inline double _wordKernel(ublas::vector<double>& emb1, ublas::vector<double>& emb2)
+        inline double _wordKernel(VectorXd& emb1, VectorXd& emb2)
         {
             if (not _useSent)
             {
@@ -49,20 +50,20 @@ class vtKernel
         };
 
         double _lexicalKernel(string& word1, string& word2);
-        double _lexicalKernel(ublas::vector<double>& emb1, ublas::vector<double>& emb2);
+        double _lexicalKernel(VectorXd& emb1, VectorXd& emb2);
 
         double _sentimentKernel(string& word1, string& word2);
-        double _sentimentKernel(ublas::vector<double>& emb1, ublas::vector<double>& emb2);
+        double _sentimentKernel(VectorXd& emb1, VectorXd& emb2);
 
         double _deltaKernel(string& word1, string& word2);
 
-        unordered_map <string, ublas::vector<double>> _embedding;
+        unordered_map <string, VectorXd> _embedding;
         double _lambda;
         int _maxLength;
         bool _useSent;
         bool _useSWN;
         bool _useCoSim;
-        ublas::vector<double> _sent_vector;
+        VectorXd _sent_vector;
         double _sigma1;
         double _sigma2;
 };

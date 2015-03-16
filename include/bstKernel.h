@@ -8,8 +8,9 @@
 #include <iostream>
 #include <cmath>
 #include <unordered_map>
+#include <Eigen/Dense>
 
-using namespace boost::numeric;
+using namespace Eigen;
 
 class bstKernel : public vtKernel
 /*
@@ -24,8 +25,8 @@ class bstKernel : public vtKernel
                 value = 0.;
                 length = 0.;
             }
-            ublas::vector<double> baryCentre1;
-            ublas::vector<double> baryCentre2;
+            VectorXd baryCentre1;
+            VectorXd baryCentre2;
             double value;
             int length;
         };
@@ -37,7 +38,7 @@ class bstKernel : public vtKernel
     protected:
         virtual double C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre);
         virtual double C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre);
-        inline ublas::vector<double> _updateBaryCentre(ublas::vector<double>& baryCentre, int length, ublas::vector<double>& newVector)
+        inline VectorXd _updateBaryCentre(VectorXd& baryCentre, int length, VectorXd& newVector)
         {
             if ((length==0) || (baryCentre.size()==0))
             {

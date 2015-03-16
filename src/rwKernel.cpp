@@ -2,17 +2,17 @@
 #include <iostream>
 #include <cmath>
 #include <unordered_map>
-#include <boost/numeric/ublas/matrix_sparse.hpp>
-#include <boost/numeric/ublas/matrix_proxy.hpp>
+#include <Eigen/SparseCore>
+#include <Eigen/Dense>
 
 using namespace std;
-using namespace boost::numeric;
+using namespace Eigen;
 
 rwKernel::rwKernel(Options opt) :
                     vtKernel(opt)
                     {}
 
-void rwKernel::_makeProductAdjMatrix(ublas::compressed_matrix<double>& adjMatrix, Graph* graph1, Graph* graph2)
+void rwKernel::_makeProductAdjMatrix(SparseMatrix<double>& adjMatrix, Graph* graph1, Graph* graph2)
 /*
     Make an adjacency matrix for the product graph
 */
@@ -27,7 +27,7 @@ void rwKernel::_makeProductAdjMatrix(ublas::compressed_matrix<double>& adjMatrix
         for (unsigned int j=0; j < graph2->labelList.size(); j++)
         {
             int ind = i + j * n1 + 1;
-            adjMatrix(0, ind) = this->_wordKernel(gl1[i], gl2[j]);
+            adjMatrix.coeffRef(0, ind) = this->_wordKernel(gl1[i], gl2[j]);
         }
     }
 
@@ -39,11 +39,10 @@ void rwKernel::_makeProductAdjMatrix(ublas::compressed_matrix<double>& adjMatrix
             int ind2 = edge1.second + edge2.second * n1 + 1;
             int ind3 = edge1.second + edge2.first * n1 + 1;
             int ind4 = edge1.first + edge2.second * n1 + 1;
-
-            adjMatrix(ind2, ind1) = this->_wordKernel(gl1[edge1.first], gl2[edge2.first]);
-            adjMatrix(ind1, ind2) = this->_wordKernel(gl1[edge1.second], gl2[edge2.second]);
-            adjMatrix(ind4, ind3) = this->_wordKernel(gl1[edge1.second], gl2[edge2.first]);
-            adjMatrix(ind3, ind4) = this->_wordKernel(gl1[edge1.first], gl2[edge2.second]);
+            adjMatrix.coeffRef(ind2, ind1) = this->_wordKernel(gl1[edge1.first], gl2[edge2.first]);
+            adjMatrix.coeffRef(ind1, ind2) = this->_wordKernel(gl1[edge1.second], gl2[edge2.second]);
+            adjMatrix.coeffRef(ind4, ind3) = this->_wordKernel(gl1[edge1.second], gl2[edge2.first]);
+            adjMatrix.coeffRef(ind3, ind4) = this->_wordKernel(gl1[edge1.first], gl2[edge2.second]);
         }
     }
 }
@@ -56,18 +55,18 @@ double rwKernel::docKernel(Graph* graph1, Graph* graph2)
 {
     int n1 = graph1->labelList.size();
     int n2 = graph2->labelList.size();
-    ublas::compressed_matrix<double> adjMatrix(n1*n2+1, n1*n2+1);
+    SparseMatrix<double> adjMatrix(n1*n2+1, n1*n2+1);
     this->_makeProductAdjMatrix(adjMatrix, graph1, graph2);
 
     auto accMatrix(adjMatrix);
     int i = 0;
-    ublas::matrix_row<ublas::compressed_matrix<double>> firstRow(accMatrix, 0);
-    double sum = ublas::norm_1(firstRow);
 
+    double sum = _lambda * adjMatrix.row(0).sum();
     while(++i<_maxLength)
     {
-        accMatrix = ublas::prod(accMatrix, adjMatrix);
-        sum += ublas::norm_1(firstRow) * pow(_lambda, i);
+        accMatrix = accMatrix * adjMatrix;
+        sum += accMatrix.row(0).sum() / factorial(i);
     }
+
     return sum;
 }

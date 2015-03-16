@@ -7,7 +7,9 @@
 #include <cmath>
 #include <unordered_map>
 
-using namespace boost::numeric;
+#include <Eigen/Dense>
+
+using namespace Eigen;
 using namespace std;
 
 vtKernel::vtKernel(Options opt)
@@ -102,7 +104,7 @@ double vtKernel::_lexicalKernel(string& word1, string& word2)
     return _lexicalKernel(emb1, emb2);
 }
 
-double vtKernel::_lexicalKernel(ublas::vector<double>& emb1, ublas::vector<double>& emb2)
+double vtKernel::_lexicalKernel(VectorXd& emb1, VectorXd& emb2)
 {
     if (!emb1.size() || !emb2.size())
     {
@@ -112,13 +114,13 @@ double vtKernel::_lexicalKernel(ublas::vector<double>& emb1, ublas::vector<doubl
     {
         if (_useCoSim)
         {
-            double cosSim = ublas::inner_prod(emb1, emb2)/(ublas::norm_2(emb1) * ublas::norm_2(emb2));
+            double cosSim = emb1.dot(emb2)/(emb1.norm() * emb2.norm());
             return std::pow(0.5*(cosSim + 1), _sigma1);
         }
         else
         {
             auto diff = emb1 - emb2;
-            return exp(-norm_2(diff)/_sigma1);
+            return exp(-diff.norm()/_sigma1);
         }
     }
 }
@@ -134,7 +136,7 @@ double vtKernel::_sentimentKernel(string& word1, string& word2)
     return _sentimentKernel(emb1, emb2);
 }
 
-double vtKernel::_sentimentKernel(ublas::vector<double>& emb1, ublas::vector<double>& emb2)
+double vtKernel::_sentimentKernel(VectorXd& emb1, VectorXd& emb2)
 {
     if (!emb1.size() || !emb2.size())
     {
@@ -142,7 +144,7 @@ double vtKernel::_sentimentKernel(ublas::vector<double>& emb1, ublas::vector<dou
     }
     else
     {
-        ublas::vector<double> diff = emb1 - emb2;
-        return exp(-abs(ublas::inner_prod(diff, _sent_vector))/_sigma2);
+        VectorXd diff = emb1 - emb2;
+        return exp(-abs(diff.dot(_sent_vector))/_sigma2);
     }
 }

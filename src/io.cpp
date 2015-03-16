@@ -4,9 +4,12 @@
 #include <fstream>
 
 #include <boost/numeric/ublas/matrix.hpp>
+#include <Eigen/Dense>
+
 #include <unordered_map>
 
 using namespace std;
+using namespace Eigen;
 using namespace boost::numeric;
 
 std::vector<std::vector<Graph*>> getDocGraphs(std::vector<Graph*> graphs)
@@ -123,7 +126,7 @@ std::vector<Graph*> loadGraphs(string path)
     return graphs;
 }
 
-unordered_map<string, ublas::vector<double>> loadEmbedding(string path)
+unordered_map<string, VectorXd> loadEmbedding(string path)
 /*
     Load word embeddings from the source files
 */
@@ -140,11 +143,11 @@ unordered_map<string, ublas::vector<double>> loadEmbedding(string path)
     std::ifstream infile2(path + "w2v_embedding.csv");
     string line;
 
-    std::vector<ublas::vector<double>> embeddings;
+    std::vector<VectorXd> embeddings;
     while (infile2.good())
     {
         string temp;
-        ublas::vector<double> embedding(300);
+        VectorXd embedding(300);
         getline(infile2, line);
         std::stringstream linestream(line);
         int ind = 0;
@@ -157,7 +160,7 @@ unordered_map<string, ublas::vector<double>> loadEmbedding(string path)
         embeddings.push_back(embedding);
     }
 
-    unordered_map <string, ublas::vector<double>> result;
+    unordered_map <string, VectorXd> result;
     int n = words.size();
     for (int i=0; i<n; i++)
     {
@@ -166,13 +169,13 @@ unordered_map<string, ublas::vector<double>> loadEmbedding(string path)
     return result;
 }
 
-ublas::vector<double> loadSentVec(string path)
+VectorXd loadSentVec(string path)
 {
     std::ifstream infile(path + "vec.txt");
     string line;
     string temp;
     getline(infile, line);
-    ublas::vector<double> sentVec(300);
+    VectorXd sentVec(300);
     std::stringstream linestream(line);
     int ind = 0;
 

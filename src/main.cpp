@@ -16,7 +16,11 @@
 #include <time.h>
 #include <boost/numeric/ublas/matrix.hpp>
 
+#include <Eigen/Dense>
+#include <Eigen/SparseCore>
+
 using namespace std;
+using namespace Eigen;
 using namespace boost::numeric;
 
 int main(int argc, char* argv[])

@@ -4,14 +4,12 @@
 #include "strKernel.h"
 #include "pstKernel.h"
 #include "bstKernel.h"
-#include <boost/numeric/ublas/matrix_proxy.hpp>
 
 #include <iostream>
 #include <cmath>
 #include <cassert>
 
 using namespace std;
-using namespace boost::numeric;
 
 pair<int, int> vectorToPair(std::vector<int> input)
 /*
