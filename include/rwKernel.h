@@ -22,7 +22,7 @@ class rwKernel : public vtKernel
         double docKernel(Graph* graph1, Graph* graph2);
 
     protected:
-        void _makeProductAdjMatrix(SparseMatrix<double>& adjMatrix, Graph* graph1, Graph* graph2);
+        void _makeProductAdjMatrix(SparseMatrix<double, RowMajor>& adjMatrix, Graph* graph1, Graph* graph2);
 };
 
 #endif // RWKERNEL_H

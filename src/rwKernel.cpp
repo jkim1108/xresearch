@@ -12,7 +12,7 @@ rwKernel::rwKernel(Options opt) :
                     vtKernel(opt)
                     {}
 
-void rwKernel::_makeProductAdjMatrix(SparseMatrix<double>& adjMatrix, Graph* graph1, Graph* graph2)
+void rwKernel::_makeProductAdjMatrix(SparseMatrix<double, RowMajor>& adjMatrix, Graph* graph1, Graph* graph2)
 /*
     Make an adjacency matrix for the product graph
 */
@@ -55,7 +55,7 @@ double rwKernel::docKernel(Graph* graph1, Graph* graph2)
 {
     int n1 = graph1->labelList.size();
     int n2 = graph2->labelList.size();
-    SparseMatrix<double> adjMatrix(n1*n2+1, n1*n2+1);
+    SparseMatrix<double, RowMajor> adjMatrix(n1*n2+1, n1*n2+1);
     this->_makeProductAdjMatrix(adjMatrix, graph1, graph2);
 
     SparseMatrix<double, RowMajor> accMatrix(adjMatrix);
