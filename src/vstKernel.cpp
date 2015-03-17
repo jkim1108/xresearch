@@ -16,16 +16,15 @@ double vstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j
         newPre.baryCentre2 = _updateBaryCentre(pre.baryCentre2, pre.length, _embedding[graph2->labelList[j]]);
         newPre.value = pre.value;
         newPre.value += _wordKernel(newPre.baryCentre1, newPre.baryCentre2) * pow(_lambda, pre.length);
-        if (pre.length)
+        if (pre.length > 0)
         {
             newPre.value +=  _wordKernel(pre.baryCentre1, newPre.baryCentre2) * pow(_lambda, pre.length);
-            newPre.value +=  _wordKernel(pre.baryCentre2, newPre.baryCentre2) * pow(_lambda, pre.length);
+            newPre.value +=  _wordKernel(pre.baryCentre2, newPre.baryCentre1) * pow(_lambda, pre.length);
         }
         newPre.length = pre.length + 1;
         return C(graph1, graph2, i+1, j+1, l-1, newPre);
     }
 }
-
 
 double vstKernel::C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre)
 {
@@ -56,7 +55,6 @@ double vstKernel::C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed
                 sum += C(dt1, dt2, child1, child2, l-1, newPre);
             }
         }
-
         return sum;
     }
 }

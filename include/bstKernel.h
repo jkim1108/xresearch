@@ -23,7 +23,7 @@ class bstKernel : public vtKernel
             preComputed()
             {
                 value = 0.;
-                length = 0.;
+                length = 0;
             }
             VectorXd baryCentre1;
             VectorXd baryCentre2;
@@ -40,17 +40,18 @@ class bstKernel : public vtKernel
         virtual double C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre);
         inline VectorXd _updateBaryCentre(VectorXd& baryCentre, int length, VectorXd& newVector)
         {
-            if ((length==0) || (baryCentre.size()==0))
+            if (length==0)
             {
                 return newVector;
             }
-            else if (newVector.size()==0)
+            else if (baryCentre.size()==0 or newVector.size()==0)
             {
-                return baryCentre;
+                VectorXd null;
+                return null;
             }
             else
             {
-                return (baryCentre * length + newVector)/(length + 1);
+                return (baryCentre * length + newVector)/(length + 1.);
             }
         }
 };
