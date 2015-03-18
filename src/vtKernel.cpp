@@ -66,7 +66,7 @@ double vtKernel::docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
             res += this->docKernel(graph1, graph2);
         }
     }
-    return res/(doc1.size()*doc2.size());
+    return res;
 }
 
 double vtKernel::docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc2)
@@ -79,7 +79,7 @@ double vtKernel::docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc
             res += this->docKernel(dt1, dt2);
         }
     }
-    return res/(doc1.size()*doc2.size());
+    return res;
 }
 
 double vtKernel::_deltaKernel(string& word1, string& word2)
