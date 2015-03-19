@@ -18,33 +18,6 @@ string getInputPath(string dataset);
 string getOutputPath(string dataset);
 
 template <typename T>
-std::vector<T> getTestSet(Options opt, std::vector<T> graphs)
-{
-    map <string, int> MID_POINTS
-    {
-        {"sentiment", 5331},
-        {"metaphor", 1565},
-        {"subjectivity", 5000},
-        {"books", 997}
-    };
-
-    if (opt.dataSize)
-    {
-        int n = opt.dataSize;
-        std::vector<T> testset(n);
-        int midPoint = MID_POINTS[opt.dataset];
-        copy(graphs.begin(), graphs.begin() + n/2, testset.begin());
-        copy(graphs.begin() + midPoint, graphs.begin() + midPoint+n/2, testset.begin() + n/2);
-        return testset;
-    }
-
-    else
-    {
-        return graphs;
-    }
-}
-
-template <typename T>
 ublas::matrix<double> getKernelMatrix(vtKernel* model, std::vector<T> testset)
 {
     int n = testset.size();
