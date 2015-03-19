@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     Options opt = getOptions(argv[1]);
     string ipath = getInputPath(opt.dataset);
     string opath = getOutputPath(argv[1]);
-    std::vector<string> blitzer({"book", "kitchen_housewares", "dvd", "electronics"});
+    std::vector<string> blitzer({"books", "kitchen_housewares", "dvd", "electronics"});
     bool useDoc = std::find(blitzer.begin(), blitzer.end(), opt.dataset)!=blitzer.end();
 
     cout << opt.dataset << endl;
