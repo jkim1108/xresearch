@@ -22,7 +22,6 @@ class vtKernel
         virtual double docKernel(const depTree* graph1, const depTree* graph2);
         double docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2);
         double docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc2);
-        //~vtKernel();
 
     protected :
         inline double _wordKernel(const string& word1, const string& word2)

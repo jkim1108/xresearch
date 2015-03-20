@@ -38,16 +38,10 @@ vtKernel::vtKernel(Options opt)
     _sigma2 = opt.sigma2;
 }
 
-/*
-vtKernel::~vtKernel()
-//Destructor freeing memory used by embedding and sent vector
+double vtKernel::docKernel(const depTree* graph1, const depTree* graph2) 
 {
-    delete &_sent_vector;
-    _embedding.clear();
-    delete &_embedding;
-};
-*/
-double vtKernel::docKernel(const depTree* graph1, const depTree* graph2) {}
+    return 0.;
+}
 
 double vtKernel::docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
 /*

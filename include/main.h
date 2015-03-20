@@ -35,7 +35,7 @@ struct Options
     bool useCoSim=false;
     double sigma1;
     double sigma2;
-    double distortion;
+    double distortion=1.0;
 };
 
 // Utility functions
