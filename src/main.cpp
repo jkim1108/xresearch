@@ -32,7 +32,6 @@ int main(int argc, char* argv[])
     std::vector<string> blitzer({"books", "kitchen_housewares", "dvd", "electronics"});
     bool useDoc = std::find(blitzer.begin(), blitzer.end(), opt.dataset)!=blitzer.end();
 
-    cout << opt.dataset << endl;
     vtKernel* model = kernelChooser(opt);
     auto graphs = loadGraphs(ipath);
     if (useDoc)

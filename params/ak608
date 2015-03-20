@@ -1,4 +1,5 @@
-kernelType:bst
+dataset:kitchen_housewares
+kernelType:vst
 useDT:0
 lambda:0.25
 maxLength:2
@@ -8,3 +9,4 @@ useSWN:0
 sigma1:5
 sigma2:1
 useCoSim:1
+distortion:0.5

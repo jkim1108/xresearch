@@ -9,6 +9,7 @@ string PATH = "/home/kim/xresearch/";
 
 Options getOptions(string paramFile)
 {
+    cout << paramFile << std::endl;
     std::ifstream infile(paramFile);
     Options opt;
 

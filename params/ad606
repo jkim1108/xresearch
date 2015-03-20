@@ -1,7 +1,8 @@
+dataset:dvd
 kernelType:bst
 useDT:0
-lambda:0.25
-maxLength:2
+lambda:0.5
+maxLength:3
 dataSize:0
 useSent:0
 useSWN:0

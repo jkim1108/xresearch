@@ -1,6 +1,7 @@
-kernelType:bst
+dataset:subjectivity
+kernelType:rw
 useDT:0
-lambda:0.25
+lambda:1
 maxLength:2
 dataSize:0
 useSent:0
@@ -8,3 +9,4 @@ useSWN:0
 sigma1:5
 sigma2:1
 useCoSim:1
+distortion:0.25

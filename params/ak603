@@ -1,0 +1,11 @@
+dataset:kitchen_housewares
+kernelType:str
+useDT:0
+lambda:0.3
+maxLength:4
+dataSize:2000
+useSent:0
+useSWN:0
+useCoSim:1
+sigma1:3
+sigma2:1
