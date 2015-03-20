@@ -32,12 +32,12 @@ class bstKernel : public vtKernel
         };
 
         bstKernel(Options opt);
-        double docKernel(Graph* graph1, Graph* graph2);
-        double docKernel(depTree* dt1, depTree* dt2);
+        double docKernel(const Graph* graph1, const Graph* graph2);
+        double docKernel(const depTree* dt1, const depTree* dt2);
 
     protected:
-        virtual double C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre);
-        virtual double C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre);
+        virtual double C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre);
+        virtual double C(const depTree* dt1, const depTree* dt2, int i, int j, int l, preComputed& pre);
         inline VectorXd _updateBaryCentre(VectorXd& baryCentre, int length, VectorXd& newVector)
         {
             if (length==0)

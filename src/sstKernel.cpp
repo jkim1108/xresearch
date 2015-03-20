@@ -4,7 +4,7 @@ sstKernel::sstKernel(Options opt) :
                     vtKernel(opt)
                     {}
 
-double sstKernel::docKernel(Graph* graph1, Graph* graph2)
+double sstKernel::docKernel(const Graph* graph1, const Graph* graph2)
 {
     double sum = 0;
     int n = graph1->labelList.size();
@@ -17,7 +17,7 @@ double sstKernel::docKernel(Graph* graph1, Graph* graph2)
 }
 
 
-double sstKernel::K(Graph* graph1, Graph* graph2, int q, int i, int j)
+double sstKernel::K(const Graph* graph1, const Graph* graph2, int q, int i, int j)
 {
     double sum = _lambda * this->K(graph1, graph2, q, i, j-1);
     for (int s=0; s<i; s++)
@@ -28,7 +28,7 @@ double sstKernel::K(Graph* graph1, Graph* graph2, int q, int i, int j)
     return sum;
 }
 
-double sstKernel::C(Graph* graph1, Graph* graph2, int q, int i, int j, double a)
+double sstKernel::C(const Graph* graph1, const Graph* graph2, int q, int i, int j, double a)
 {
     double sum = a * C(graph1, graph2, q, i, j);
     for (int r=0; r<q; r++)
@@ -38,22 +38,22 @@ double sstKernel::C(Graph* graph1, Graph* graph2, int q, int i, int j, double a)
     return sum;
 }
 
-double sstKernel::C(Graph* graph1, Graph* graph2, int q, int i, int j)
+double sstKernel::C(const Graph* graph1, const Graph* graph2, int q, int i, int j)
 {
     return _lambda * C(graph1, graph2, q, i, j-1) + Cp(graph1, graph2, q, i, j);
 }
 
-double sstKernel::Cp(Graph* graph1, Graph* graph2, int q, int i, int j)
+double sstKernel::Cp(const Graph* graph1, const Graph* graph2, int q, int i, int j)
 {
     return _lambda * _lambda * C(graph1, graph2, q-1, i-1, j-1) + _lambda * Cp(graph1, graph2, q, i, j-1);
 }
 
-double sstKernel::C(Graph* graph1, Graph* graph2, int q, int r, int i, int j)
+double sstKernel::C(const Graph* graph1, const Graph* graph2, int q, int r, int i, int j)
 {
     return _lambda * C(graph1, graph2, q, r, i, j-1) + Cp(graph1, graph2, q, r, i, j);
 }
 
-double sstKernel::Cp(Graph* graph1, Graph* graph2, int q, int r, int i, int j)
+double sstKernel::Cp(const Graph* graph1, const Graph* graph2, int q, int r, int i, int j)
 {
 	if (q != r)
     {

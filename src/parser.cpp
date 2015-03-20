@@ -67,6 +67,10 @@ Options getOptions(string paramFile)
         {
             opt.sigma2 = atof(optionValue.c_str());
         }
+        else if (optionType=="distortion")
+        {
+            opt.distortion = atof(optionValue.c_str());
+        }
         else if (optionType=="")
         {
             continue;

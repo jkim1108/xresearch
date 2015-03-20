@@ -4,7 +4,7 @@ bstKernel::bstKernel(Options opt) :
                     vtKernel(opt)
                     {}
 
-double bstKernel::docKernel(Graph* graph1, Graph* graph2)
+double bstKernel::docKernel(const Graph* graph1, const Graph* graph2)
 {
     double sum = 0;
     for (unsigned int i=0; i<graph1->labelList.size(); i++)
@@ -27,7 +27,7 @@ double bstKernel::docKernel(Graph* graph1, Graph* graph2)
     return sum;
 }
 
-double bstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre)
+double bstKernel::C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre)
 {
     if ((l == 0) or (i>=graph1->labelList.size()) or (j>=graph2->labelList.size()))
     {
@@ -45,7 +45,7 @@ double bstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j
     }
 }
 
-double bstKernel::docKernel(depTree* dt1, depTree* dt2)
+double bstKernel::docKernel(const depTree* dt1, const depTree* dt2)
 {
     double sum = 0;
     for (unsigned int i=0; i<dt1->nodeList.size(); i++)
@@ -69,7 +69,7 @@ double bstKernel::docKernel(depTree* dt1, depTree* dt2)
     return sum;
 }
 
-double bstKernel::C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre)
+double bstKernel::C(const depTree* dt1, const depTree* dt2, int i, int j, int l, preComputed& pre)
 {
     if ((l==0) or (dt1->nodeList[i]->height==0) or (dt2->nodeList[j]->height==0))
     {

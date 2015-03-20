@@ -4,7 +4,7 @@ pstKernel::pstKernel(Options opt) :
                     vtKernel(opt)
                     {}
 
-double pstKernel::docKernel(Graph* graph1, Graph* graph2)
+double pstKernel::docKernel(const Graph* graph1, const Graph* graph2)
 {
     double sum = 0;
     for (unsigned int i=0; i<graph1->labelList.size(); i++)
@@ -26,7 +26,7 @@ double pstKernel::docKernel(Graph* graph1, Graph* graph2)
     return sum;
 };
 
-double pstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, double pre, double multi)
+double pstKernel::C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, double pre, double multi)
 {
     if ((l == 0) or (i>=graph1->labelList.size()) or (j>=graph2->labelList.size()))
     {
@@ -40,7 +40,7 @@ double pstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j
     }
 };
 
-double pstKernel::docKernel(depTree* dt1, depTree* dt2)
+double pstKernel::docKernel(const depTree* dt1, const depTree* dt2)
 {
     double sum = 0;
     for (unsigned int i=0; i<dt1->nodeList.size(); i++)
@@ -65,7 +65,7 @@ double pstKernel::docKernel(depTree* dt1, depTree* dt2)
     return sum;
 };
 
-double pstKernel::C(depTree* dt1, depTree* dt2, int i, int j, int l)
+double pstKernel::C(const depTree* dt1, const depTree* dt2, int i, int j, int l)
 {
     if ((l > dt1->nodeList[i]->height) || (l > dt2->nodeList[j]->height))
     {

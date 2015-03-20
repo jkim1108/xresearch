@@ -12,7 +12,7 @@ rwKernel::rwKernel(Options opt) :
                     vtKernel(opt)
                     {}
 
-void rwKernel::_makeProductAdjMatrix(SparseMatrix<double, RowMajor>& adjMatrix, Graph* graph1, Graph* graph2)
+void rwKernel::_makeProductAdjMatrix(SparseMatrix<double, RowMajor>& adjMatrix, const Graph* graph1, const Graph* graph2)
 /*
     Make an adjacency matrix for the product graph
 */
@@ -47,7 +47,7 @@ void rwKernel::_makeProductAdjMatrix(SparseMatrix<double, RowMajor>& adjMatrix, 
     }
 }
 
-double rwKernel::docKernel(Graph* graph1, Graph* graph2)
+double rwKernel::docKernel(const Graph* graph1, const Graph* graph2)
 /*
     Random walk kernel obtained from the common walks between graph1 and graph2
     using the product graph formulation
@@ -70,3 +70,9 @@ double rwKernel::docKernel(Graph* graph1, Graph* graph2)
 
     return sum;
 }
+
+double rwKernel::docKernel(const depTree* graph1, const depTree* graph2)
+{
+    throw std::runtime_error("No RW Kernel defined for dependency trees");
+}
+

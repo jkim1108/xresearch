@@ -47,10 +47,7 @@ vtKernel::~vtKernel()
     delete &_embedding;
 };
 */
-double vtKernel::docKernel(depTree* graph1, depTree* graph2)
-{
-    return 0;
-}
+double vtKernel::docKernel(const depTree* graph1, const depTree* graph2) {}
 
 double vtKernel::docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
 /*
@@ -82,7 +79,7 @@ double vtKernel::docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc
     return res;
 }
 
-double vtKernel::_deltaKernel(string& word1, string& word2)
+double vtKernel::_deltaKernel(const string& word1, const string& word2)
 /*
     Outputs the dirac delta kernel value between two words
 */
@@ -90,7 +87,7 @@ double vtKernel::_deltaKernel(string& word1, string& word2)
     return (word1 == word2);
 }
 
-double vtKernel::_lexicalKernel(string& word1, string& word2)
+double vtKernel::_lexicalKernel(const string& word1, const string& word2)
 /*
     Laplacian kernel for the lexical similarity between two words
 */
@@ -104,7 +101,7 @@ double vtKernel::_lexicalKernel(string& word1, string& word2)
     return _lexicalKernel(emb1, emb2);
 }
 
-double vtKernel::_lexicalKernel(VectorXd& emb1, VectorXd& emb2)
+double vtKernel::_lexicalKernel(const VectorXd& emb1, const VectorXd& emb2)
 {
     if (!emb1.size() || !emb2.size())
     {
@@ -125,7 +122,7 @@ double vtKernel::_lexicalKernel(VectorXd& emb1, VectorXd& emb2)
     }
 }
 
-double vtKernel::_sentimentKernel(string& word1, string& word2)
+double vtKernel::_sentimentKernel(const string& word1, const string& word2)
 {
     if (word1 == word2)
     {
@@ -136,7 +133,7 @@ double vtKernel::_sentimentKernel(string& word1, string& word2)
     return _sentimentKernel(emb1, emb2);
 }
 
-double vtKernel::_sentimentKernel(VectorXd& emb1, VectorXd& emb2)
+double vtKernel::_sentimentKernel(const VectorXd& emb1, const VectorXd& emb2)
 {
     if (!emb1.size() || !emb2.size())
     {

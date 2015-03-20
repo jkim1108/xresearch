@@ -187,7 +187,7 @@ VectorXd loadSentVec(string path)
     return sentVec;
 }
 
-void writeToCsv(ublas::matrix<double>& kernelMatrix, string path)
+void writeToCsv(const ublas::matrix<double>& kernelMatrix, string path)
 /*
     Write the final output in numpy's to_csv format
 */

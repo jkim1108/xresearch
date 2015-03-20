@@ -31,7 +31,7 @@ int height(map<int, std::vector<int>> children_map, int node_ind)
     }
 }
 
-depTree::depTree(Graph* graph)
+depTree::depTree(const Graph* graph)
 {
     // Make a map from the node index to its children
     map<int, std::vector<int>> children_map;

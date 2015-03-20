@@ -35,10 +35,11 @@ struct Options
     bool useCoSim=false;
     double sigma1;
     double sigma2;
+    double distortion;
 };
 
 // Utility functions
-pair <int, int> vectorToPair(std::vector<int> input);
+pair<int, int> vectorToPair(std::vector<int> input);
 double factorial(int n);
 
 // Functions dealing with IO's
@@ -46,6 +47,6 @@ std::vector<std::vector<Graph*>> getDocGraphs(std::vector<Graph*> graphs);
 std::vector<Graph*> loadGraphs(string path);
 unordered_map<string, VectorXd> loadEmbedding(string path);
 VectorXd loadSentVec(string path);
-void writeToCsv(ublas::matrix<double>& kernelMatrix, string path);
+void writeToCsv(const ublas::matrix<double>& kernelMatrix, string path);
 
 #endif //MAIN_H

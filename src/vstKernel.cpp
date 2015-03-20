@@ -1,8 +1,8 @@
 #include "vstKernel.h"
 
-vstKernel::vstKernel(Options opt) : bstKernel(opt) {}
+vstKernel::vstKernel(Options opt) : bstKernel(opt), _distortion(opt.distortion) {}
 
-double vstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre)
+double vstKernel::C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre)
 {
     if ((l == 0) or (i>=graph1->labelList.size()) or (j>=graph2->labelList.size()))
     {
@@ -18,15 +18,15 @@ double vstKernel::C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j
         newPre.value += _wordKernel(newPre.baryCentre1, newPre.baryCentre2) * pow(_lambda, pre.length);
         if (pre.length > 0)
         {
-            newPre.value +=  _wordKernel(pre.baryCentre1, newPre.baryCentre2) * pow(_lambda, pre.length);
-            newPre.value +=  _wordKernel(pre.baryCentre2, newPre.baryCentre1) * pow(_lambda, pre.length);
+            newPre.value +=  _wordKernel(pre.baryCentre1, newPre.baryCentre2) * pow(_lambda, pre.length) * _distortion;
+            newPre.value +=  _wordKernel(pre.baryCentre2, newPre.baryCentre1) * pow(_lambda, pre.length) * _distortion;
         }
         newPre.length = pre.length + 1;
         return C(graph1, graph2, i+1, j+1, l-1, newPre);
     }
 }
 
-double vstKernel::C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre)
+double vstKernel::C(const depTree* dt1, const depTree* dt2, int i, int j, int l, preComputed& pre)
 {
     if ((l==0) or (dt1->nodeList[i]->height==0) or (dt2->nodeList[j]->height==0))
     {

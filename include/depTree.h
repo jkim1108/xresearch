@@ -21,7 +21,7 @@ struct depTree
             std::vector<int> children;
         };
 
-        depTree(Graph* graph);
+        depTree(const Graph* graph);
         std::vector<Node*> nodeList;
         int _maxHeight;
 };

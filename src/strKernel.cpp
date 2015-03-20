@@ -4,7 +4,7 @@ strKernel::strKernel(Options opt) :
                     vtKernel(opt)
                     {}
 
-double strKernel::docKernel(Graph* graph1, Graph* graph2)
+double strKernel::docKernel(const Graph* graph1, const Graph* graph2)
 {
     double sum = 0;
     for (unsigned int i=0; i<graph1->labelList.size(); i++)

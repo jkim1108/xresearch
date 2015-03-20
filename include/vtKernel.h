@@ -18,14 +18,14 @@ class vtKernel
 {
     public :
         vtKernel(Options opt);
-        virtual double docKernel(Graph* graph1, Graph* graph2)=0;
-        virtual double docKernel(depTree* graph1, depTree* graph2);
+        virtual double docKernel(const Graph* graph1, const Graph* graph2)=0;
+        virtual double docKernel(const depTree* graph1, const depTree* graph2);
         double docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2);
         double docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc2);
         //~vtKernel();
 
     protected :
-        inline double _wordKernel(string& word1, string& word2)
+        inline double _wordKernel(const string& word1, const string& word2)
         {
             if (not _useSent)
             {
@@ -37,7 +37,7 @@ class vtKernel
             }
         };
 
-        inline double _wordKernel(VectorXd& emb1, VectorXd& emb2)
+        inline double _wordKernel(const VectorXd& emb1, const VectorXd& emb2)
         {
             if (not _useSent)
             {
@@ -49,13 +49,13 @@ class vtKernel
             }
         };
 
-        double _lexicalKernel(string& word1, string& word2);
-        double _lexicalKernel(VectorXd& emb1, VectorXd& emb2);
+        double _lexicalKernel(const string& word1, const string& word2);
+        double _lexicalKernel(const VectorXd& emb1, const VectorXd& emb2);
 
-        double _sentimentKernel(string& word1, string& word2);
-        double _sentimentKernel(VectorXd& emb1, VectorXd& emb2);
+        double _sentimentKernel(const string& word1, const string& word2);
+        double _sentimentKernel(const VectorXd& emb1, const VectorXd& emb2);
 
-        double _deltaKernel(string& word1, string& word2);
+        double _deltaKernel(const string& word1, const string& word2);
 
         unordered_map <string, VectorXd> _embedding;
         double _lambda;

@@ -15,12 +15,12 @@ class pstKernel : public vtKernel
 {
     public:
         pstKernel(Options opt);
-        double docKernel(Graph* graph1, Graph* graph2);
-        double docKernel(depTree* dt1, depTree* dt2);
+        double docKernel(const Graph* graph1, const Graph* graph2);
+        double docKernel(const depTree* dt1, const depTree* dt2);
 
     protected:
-        double C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, double pre=0, double multi=1);
-        double C(depTree* dt1, depTree* dt2, int i, int j, int l);
+        double C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, double pre=0, double multi=1);
+        double C(const depTree* dt1, const depTree* dt2, int i, int j, int l);
 };
 
 #endif // PSTKERNEL_H

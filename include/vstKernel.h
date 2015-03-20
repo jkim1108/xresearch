@@ -13,8 +13,9 @@ class vstKernel : public bstKernel
     public:
         vstKernel(Options opt);
     protected:
-        double C(Graph* graph1, Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre);
-        double C(depTree* dt1, depTree* dt2, int i, int j, int l, preComputed& pre);
+        double C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre);
+        double C(const depTree* dt1, const depTree* dt2, int i, int j, int l, preComputed& pre);
+        double _distortion;
 
 };
 
