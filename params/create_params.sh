@@ -1,4 +1,4 @@
-for param in $(ls 6??)
+for param in $(ls 7??)
 do
 #    cp $param m$param
     cp $param p$param

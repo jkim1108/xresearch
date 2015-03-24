@@ -2,7 +2,8 @@
 
 bstKernel::bstKernel(Options opt) :
                     vtKernel(opt)
-                    {}
+                    {
+                    }
 
 double bstKernel::docKernel(const Graph* graph1, const Graph* graph2)
 {
@@ -37,9 +38,9 @@ double bstKernel::C(const Graph* graph1, const Graph* graph2, unsigned int i, un
     else
     {
         preComputed newPre;
-        newPre.baryCentre1 = _updateBaryCentre(pre.baryCentre1, pre.length, _embedding[graph1->labelList[i]]);
-        newPre.baryCentre2 = _updateBaryCentre(pre.baryCentre2, pre.length, _embedding[graph2->labelList[j]]);
-        newPre.value = pre.value + _wordKernel(newPre.baryCentre1, newPre.baryCentre2) * pow(_lambda, pre.length);
+        newPre.compVector1 = _updateComposition(pre.compVector1, _embedding[graph1->labelList[i]], pre.length);
+        newPre.compVector2 = _updateComposition(pre.compVector2, _embedding[graph2->labelList[j]], pre.length);
+        newPre.value = pre.value + _wordKernel(newPre.compVector1, newPre.compVector2) * pow(_lambda, pre.length);
         newPre.length = pre.length + 1;
         return C(graph1, graph2, i+1, j+1, l-1, newPre);
     }
@@ -73,17 +74,17 @@ double bstKernel::C(const depTree* dt1, const depTree* dt2, int i, int j, int l,
 {
     if ((l==0) or (dt1->nodeList[i]->height==0) or (dt2->nodeList[j]->height==0))
     {
-        auto baryCentre1 = _updateBaryCentre(pre.baryCentre1, pre.length, _embedding[dt1->nodeList[i]->label]);
-        auto baryCentre2 = _updateBaryCentre(pre.baryCentre2, pre.length, _embedding[dt2->nodeList[j]->label]);
-        return _wordKernel(baryCentre1, baryCentre2) * pow(_lambda, pre.length);
+        auto compVector1 = _updateComposition(pre.compVector1, _embedding[dt1->nodeList[i]->label], pre.length);
+        auto compVector2 = _updateComposition(pre.compVector2, _embedding[dt2->nodeList[j]->label], pre.length);
+        return _wordKernel(compVector1, compVector2) * pow(_lambda, pre.length);
     }
 
     else
     {
         preComputed newPre;
-        newPre.baryCentre1 = _updateBaryCentre(pre.baryCentre1, pre.length, _embedding[dt1->nodeList[i]->label]);
-        newPre.baryCentre2 = _updateBaryCentre(pre.baryCentre2, pre.length, _embedding[dt2->nodeList[j]->label]);
-        double sum = _wordKernel(newPre.baryCentre1, newPre.baryCentre2) * pow(_lambda, pre.length);
+        newPre.compVector1 = _updateComposition(pre.compVector1, _embedding[dt1->nodeList[i]->label], pre.length);
+        newPre.compVector2 = _updateComposition(pre.compVector2, _embedding[dt2->nodeList[j]->label], pre.length);
+        double sum = _wordKernel(newPre.compVector1, newPre.compVector2) * pow(_lambda, pre.length);
         newPre.length = pre.length + 1;
 
         for (auto child1:dt1->nodeList[i]->children)

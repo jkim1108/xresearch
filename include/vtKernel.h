@@ -22,49 +22,42 @@ class vtKernel
         virtual double docKernel(const depTree* graph1, const depTree* graph2);
         double docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2);
         double docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc2);
+        //~vtKernel();
 
     protected :
         inline double _wordKernel(const string& word1, const string& word2)
+        /*
+            Laplacian kernel for the lexical similarity between two words
+        */
         {
-            if (not _useSent)
+            if (word1 == word2)
             {
-                return _lexicalKernel(word1, word2);
+                return 1.;
             }
-            else
-            {
-                return _lexicalKernel(word1, word2) * _sentimentKernel(word1, word2);
-            }
+            auto emb1 = _embedding[word1];
+            auto emb2 = _embedding[word2];
+            return _wordKernel(emb1, emb2);
         };
 
         inline double _wordKernel(const VectorXd& emb1, const VectorXd& emb2)
         {
-            if (not _useSent)
+            if (!emb1.size() || !emb2.size())
             {
-                return _lexicalKernel(emb1, emb2);
+                return 0.;
             }
             else
             {
-                return _lexicalKernel(emb1, emb2) * _sentimentKernel(emb1, emb2);
+                double cosSim = emb1.dot(emb2)/(emb1.norm() * emb2.norm());
+                return std::pow(0.5*(cosSim + 1), _sigma);
             }
         };
-
-        double _lexicalKernel(const string& word1, const string& word2);
-        double _lexicalKernel(const VectorXd& emb1, const VectorXd& emb2);
-
-        double _sentimentKernel(const string& word1, const string& word2);
-        double _sentimentKernel(const VectorXd& emb1, const VectorXd& emb2);
 
         double _deltaKernel(const string& word1, const string& word2);
 
         unordered_map <string, VectorXd> _embedding;
         double _lambda;
         int _maxLength;
-        bool _useSent;
-        bool _useSWN;
-        bool _useCoSim;
-        VectorXd _sent_vector;
-        double _sigma1;
-        double _sigma2;
+        double _sigma;
 };
 
 #endif // VTKERNEL_H

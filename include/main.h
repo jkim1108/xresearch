@@ -30,12 +30,9 @@ struct Options
     int maxLength;
     int dataSize;
     bool useDT;
-    bool useSent;
-    bool useSWN;
-    bool useCoSim=false;
-    double sigma1;
-    double sigma2;
-    double distortion=1.0;
+    bool useMult;
+    double sigma;
+    double distortion;
 };
 
 // Utility functions

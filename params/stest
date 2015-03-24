@@ -1,0 +1,8 @@
+dataset:subjectivity
+kernelType:vst
+useDT:0
+lambda:0.25
+maxLength:2
+sigma:5
+distortion:0.25
+useMult:1

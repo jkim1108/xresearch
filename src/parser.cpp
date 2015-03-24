@@ -36,9 +36,9 @@ Options getOptions(string paramFile)
         {
             opt.useDT = atoi(optionValue.c_str());
         }
-        else if (optionType=="dataSize")
+        else if (optionType=="useMult")
         {
-            opt.dataSize = atoi(optionValue.c_str());
+            opt.useMult = atoi(optionValue.c_str());
         }
         else if (optionType=="lambda")
         {
@@ -48,25 +48,9 @@ Options getOptions(string paramFile)
         {
             opt.maxLength = atoi(optionValue.c_str());
         }
-        else if (optionType=="useSent")
+        else if (optionType=="sigma")
         {
-            opt.useSent = atoi(optionValue.c_str());
-        }
-        else if (optionType=="useSWN")
-        {
-            opt.useSWN = atoi(optionValue.c_str());
-        }
-        else if (optionType=="useCoSim")
-        {
-            opt.useCoSim = atoi(optionValue.c_str());
-        }
-        else if (optionType=="sigma1")
-        {
-            opt.sigma1 = atof(optionValue.c_str());
-        }
-        else if (optionType=="sigma2")
-        {
-            opt.sigma2 = atof(optionValue.c_str());
+            opt.sigma = atof(optionValue.c_str());
         }
         else if (optionType=="distortion")
         {

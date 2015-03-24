@@ -1,0 +1,8 @@
+dataset:books
+kernelType:vst
+useDT:1
+lambda:0.5
+maxLength:2
+sigma:1
+distortion:0.5
+useMult:1

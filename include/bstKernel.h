@@ -20,15 +20,10 @@ class bstKernel : public vtKernel
     public:
         struct preComputed
         {
-            preComputed()
-            {
-                value = 0.;
-                length = 0;
-            }
-            VectorXd baryCentre1;
-            VectorXd baryCentre2;
-            double value;
-            int length;
+            VectorXd compVector1;
+            VectorXd compVector2;
+            double value=0.;
+            int length=0;
         };
 
         bstKernel(Options opt);
@@ -38,22 +33,31 @@ class bstKernel : public vtKernel
     protected:
         virtual double C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre);
         virtual double C(const depTree* dt1, const depTree* dt2, int i, int j, int l, preComputed& pre);
-        inline VectorXd _updateBaryCentre(VectorXd& baryCentre, int length, VectorXd& newVector)
+        bool _useMult;
+        inline VectorXd _updateComposition(VectorXd& vector1, VectorXd& vector2, int length)
         {
             if (length==0)
             {
-                return newVector;
+                return vector2;
             }
-            else if (baryCentre.size()==0 or newVector.size()==0)
+            else if (vector1.size()==0 or vector2.size()==0)
             {
                 VectorXd null;
                 return null;
             }
             else
             {
-                return (baryCentre * length + newVector)/(length + 1.);
+                if (_useMult)
+                {
+                    return (vector1 * vector2);
+                }
+                else
+                {
+                    return vector1 + vector2;
+                }
             }
         }
+
 };
 
 #endif // BSTKERNEL_H
