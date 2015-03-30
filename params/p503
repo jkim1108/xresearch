@@ -1,7 +1,7 @@
 dataset:sentiment
 kernelType:bst
 useDT:0
-lambda:0.5
+lambda:0.25
 maxLength:2
 dataSize:0
 useSent:0

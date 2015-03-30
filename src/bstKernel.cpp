@@ -1,7 +1,7 @@
 #include "bstKernel.h"
 
 bstKernel::bstKernel(Options opt) :
-                    vtKernel(opt)
+                    vtKernel(opt), _useMult(opt.useMult)
                     {
                     }
 

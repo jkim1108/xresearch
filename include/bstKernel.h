@@ -49,7 +49,7 @@ class bstKernel : public vtKernel
             {
                 if (_useMult)
                 {
-                    return (vector1 * vector2);
+                    return vector1.cwiseProduct(vector2);
                 }
                 else
                 {

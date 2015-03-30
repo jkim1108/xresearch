@@ -1,0 +1,8 @@
+dataset:electronics
+kernelType:vst
+useDT:0
+lambda:0.5
+maxLength:3
+sigma:5
+distortion:0.5
+useMult:1

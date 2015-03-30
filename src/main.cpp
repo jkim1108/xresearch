@@ -40,13 +40,11 @@ int main(int argc, char* argv[])
         if (opt.useDT)
         {
             auto docDTs = getDocDTs(docGraphs);
-            auto kernelMatrix = getKernelMatrix<std::vector<depTree*>>(model, docDTs);
-            writeToCsv(kernelMatrix, opath);
+            cout << model->docKernel(docDTs[atoi(argv[2])], docDTs[atoi(argv[3])])<< endl;            
         }
         else
         {
-            auto kernelMatrix = getKernelMatrix<std::vector<Graph*>>(model, docGraphs);
-            writeToCsv(kernelMatrix, opath);
+            cout << model->docKernel(docGraphs[atoi(argv[2])], docGraphs[atoi(argv[3])]) << endl;
         }
     }
     else
@@ -54,13 +52,11 @@ int main(int argc, char* argv[])
         if (opt.useDT)
         {
             auto dts = loadDepTree(graphs);
-            auto kernelMatrix = getKernelMatrix<depTree*>(model, dts);
-            writeToCsv(kernelMatrix, opath);
+            cout << model->docKernel(dts[atoi(argv[2])], dts[atoi(argv[3])])<< endl;            
         }
         else
         {
-            auto kernelMatrix = getKernelMatrix<Graph*>(model, graphs);
-            writeToCsv(kernelMatrix, opath);
+            cout << model->docKernel(graphs[atoi(argv[2])], graphs[atoi(argv[3])])<< endl;            
         }
     }
     auto t2 = clock();

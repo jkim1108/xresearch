@@ -1,0 +1,8 @@
+dataset:sentiment
+kernelType:vst
+useDT:1
+lambda:0.5
+maxLength:3
+sigma:5
+distortion:0.5
+useMult:0

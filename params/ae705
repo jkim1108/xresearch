@@ -1,0 +1,8 @@
+dataset:electronics
+kernelType:pst
+useDT:0
+lambda:1
+maxLength:2
+sigma:5
+distortion:0
+useMult:0

@@ -1,4 +1,4 @@
-for param in $(ls 7??)
+for param in $(ls [5-6]??)
 do
 #    cp $param m$param
     cp $param p$param
