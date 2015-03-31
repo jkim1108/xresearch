@@ -29,8 +29,8 @@ int main(int argc, char* argv[])
     Options opt = getOptions(argv[1]);
     string ipath = getInputPath(opt.dataset);
     string opath = getOutputPath(argv[1]);
-    std::vector<string> blitzer({"books", "kitchen_housewares", "dvd", "electronics"});
-    bool useDoc = std::find(blitzer.begin(), blitzer.end(), opt.dataset)!=blitzer.end();
+    std::vector<string> docList({"books", "kitchen_housewares", "dvd", "electronics", "plv2"});
+    bool useDoc = std::find(docList.begin(), docList.end(), opt.dataset)!=docList.end();
 
     vtKernel* model = kernelChooser(opt);
     auto graphs = loadGraphs(ipath);
