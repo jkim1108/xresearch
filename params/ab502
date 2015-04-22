@@ -1,8 +1,0 @@
-dataset:books
-kernelType:pst
-useDT:1
-lambda:1
-maxLength:3
-sigma:5
-distortion:0
-useMult:0

@@ -62,8 +62,7 @@ Options getOptions(string paramFile)
         }
         else
         {
-            cout << "wrong input arguments" << endl;
-            exit(0);
+            throw runtime_error("wrong input arguments" );
         }
     }
 
@@ -78,7 +77,7 @@ string getInputPath(string dataset)
 string getOutputPath(string filepath)
 {
     unsigned found = filepath.find_last_of("/\\");
-    return PATH + "result/" + filepath.substr(found+1) + ".csv";
+    return PATH + "result/" + filepath.substr(found+1);
 }
 
 vtKernel* kernelChooser(Options opt)
@@ -104,6 +103,10 @@ vtKernel* kernelChooser(Options opt)
     else if (opt.kernelType=="rw")
     {
         kernel = new rwKernel(opt);
+    }
+    else if (opt.kernelType=="b")
+    {
+        kernel = new bKernel(opt);
     }
     else
     {

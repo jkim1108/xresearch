@@ -1,8 +1,0 @@
-dataset:dvd
-kernelType:pst
-useDT:1
-lambda:1
-maxLength:2
-sigma:5
-distortion:0.25
-useMult:0

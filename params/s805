@@ -1,8 +1,0 @@
-dataset:subjectivity
-kernelType:rw
-useDT:0
-lambda:1
-maxLength:3
-sigma:5
-distortion:0.5
-useMult:0

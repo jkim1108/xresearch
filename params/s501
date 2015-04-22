@@ -1,8 +1,0 @@
-dataset:subjectivity
-kernelType:str
-useDT:0
-lambda:0.3
-maxLength:4
-sigma:5
-distortion:0
-useMult:0

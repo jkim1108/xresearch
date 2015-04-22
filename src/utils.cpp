@@ -4,6 +4,7 @@
 #include "strKernel.h"
 #include "pstKernel.h"
 #include "bstKernel.h"
+#include "bKernel.h"
 
 #include <iostream>
 #include <cmath>

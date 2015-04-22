@@ -169,39 +169,19 @@ unordered_map<string, VectorXd> loadEmbedding(string path)
     return result;
 }
 
-VectorXd loadSentVec(string path)
-{
-    std::ifstream infile(path + "vec.txt");
-    string line;
-    string temp;
-    getline(infile, line);
-    VectorXd sentVec(300);
-    std::stringstream linestream(line);
-    int ind = 0;
-
-    while (getline(linestream, temp, ','))
-    {
-        sentVec[ind] = std::stod(temp);
-        ind++;
-    }
-    return sentVec;
-}
-
 void writeToCsv(const ublas::matrix<double>& kernelMatrix, string path)
 /*
     Write the final output in numpy's to_csv format
 */
 {
-    int n = kernelMatrix.size1();
     ofstream ofile(path);
-
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < kernelMatrix.size1(); i++)
     {
-        for (int j = 0; j < n-1; j++)
+        for (int j = 0; j < kernelMatrix.size2() - 1; j++)
         {
             ofile << kernelMatrix(i, j) << " ";
         }
-        ofile << kernelMatrix(i, n-1) << endl;
+        ofile << kernelMatrix(i, kernelMatrix.size2() - 1) << endl;
     }
     ofile.close();
 }
