@@ -1,6 +1,6 @@
 
 - Author : Jonghoon Kim
-- E-mail : john.jonghoon.kim@gmail.com
+- E-mail : john.jonghoon.kim attt google mail
 - Date : 29/Apr/2015
 
 ------------------------------------------------------------------------------
