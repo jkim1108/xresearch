@@ -1,5 +1,5 @@
 #include "main.h"
-#include "vtKernel.h"
+#include "Kernel.h"
 #include "parser.h"
 
 #include <iostream>
@@ -12,26 +12,26 @@
 using namespace Eigen;
 using namespace std;
 
-vtKernel::vtKernel(Options opt)
+Kernel::Kernel(Options opt)
 /*
     Assign the embedding dictionary and sentiment vector which shall be used for
     the computation of the kernel
 */
 {
     _embedding = loadEmbedding(getInputPath(opt.dataset));
-    _lambda = opt.lambda;
+    _lambda1 = opt.lambda1;
     _maxLength = opt.maxLength;
     string PATH = "/home/kim/xresearch/";
-    _sigma = opt.sigma;
+    _alpha = opt.alpha;
 }
 
-double vtKernel::docKernel(const depTree* graph1, const depTree* graph2)
+double Kernel::docKernel(const depTree* graph1, const depTree* graph2)
 {
     throw std::runtime_error("Kernel undefiend for dependency tree");
     return 0.;
 }
 
-double vtKernel::docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
+double Kernel::docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
 /*
     Document kernel computed as the sum of random walk kernel values between all
     pairs of sentences in doc1 and doc2
@@ -48,7 +48,7 @@ double vtKernel::docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2)
     return res;
 }
 
-double vtKernel::docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc2)
+double Kernel::docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc2)
 {
     double res(0);
     for (auto dt1 : doc1)
@@ -61,7 +61,7 @@ double vtKernel::docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc
     return res;
 }
 
-double vtKernel::_deltaKernel(const string& word1, const string& word2)
+double Kernel::_deltaKernel(const string& word1, const string& word2)
 /*
     Outputs the dirac delta kernel value between two words
 */

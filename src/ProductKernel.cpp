@@ -1,10 +1,10 @@
-#include "bKernel.h"
+#include "ProductKernel.h"
 
-bKernel::bKernel(Options opt) :
-                    vtKernel(opt)
+ProductKernel::ProductKernel(Options opt) :
+                    Kernel(opt)
                     {}
 
-double bKernel::docKernel(const Graph* graph1, const Graph* graph2)
+double ProductKernel::docKernel(const Graph* graph1, const Graph* graph2)
 {
     double sum = 0;
     for (unsigned int i=0; i<graph1->labelList.size(); i++)
@@ -26,7 +26,7 @@ double bKernel::docKernel(const Graph* graph1, const Graph* graph2)
     return sum;
 };
 
-double bKernel::C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, double pre, double multi)
+double ProductKernel::C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, double pre, double multi)
 {
     if ((l == 0) or (i>=graph1->labelList.size()) or (j>=graph2->labelList.size()))
     {
@@ -34,13 +34,13 @@ double bKernel::C(const Graph* graph1, const Graph* graph2, unsigned int i, unsi
     }
     else
     {
-        multi *= _lambda * _deltaKernel(graph1->labelList[i], graph2->labelList[j]);
+        multi *= _lambda1 * _wordKernel(graph1->labelList[i], graph2->labelList[j]);
         pre += multi;
         return C(graph1, graph2, i+1, j+1, l-1, pre);
     }
 };
 
-double bKernel::docKernel(const depTree* dt1, const depTree* dt2)
+double ProductKernel::docKernel(const depTree* dt1, const depTree* dt2)
 {
     double sum = 0;
     for (unsigned int i=0; i<dt1->nodeList.size(); i++)
@@ -65,7 +65,7 @@ double bKernel::docKernel(const depTree* dt1, const depTree* dt2)
     return sum;
 };
 
-double bKernel::C(const depTree* dt1, const depTree* dt2, int i, int j, int l)
+double ProductKernel::C(const depTree* dt1, const depTree* dt2, int i, int j, int l)
 {
     if ((l > dt1->nodeList[i]->height) || (l > dt2->nodeList[j]->height))
     {
@@ -74,18 +74,18 @@ double bKernel::C(const depTree* dt1, const depTree* dt2, int i, int j, int l)
 
     else if (l == 0)
     {
-        return this->_deltaKernel(dt1->nodeList[i]->label, dt2->nodeList[j]->label);
+        return this->_wordKernel(dt1->nodeList[i]->label, dt2->nodeList[j]->label);
     }
 
     else
     {
         double sum = 0.;
-        double cur = this->_deltaKernel(dt1->nodeList[i]->label, dt2->nodeList[j]->label);
+        double cur = this->_wordKernel(dt1->nodeList[i]->label, dt2->nodeList[j]->label);
         for (auto child1:dt1->nodeList[i]->children)
         {
             for (auto child2:dt2->nodeList[j]->children)
             {
-                sum += _lambda * cur * C(dt1, dt2, child1, child2, l-1);
+                sum += _lambda1 * cur * C(dt1, dt2, child1, child2, l-1);
             }
         }
         return sum;

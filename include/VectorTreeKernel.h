@@ -1,8 +1,8 @@
-#ifndef RWKERNEL_H
-#define RWKERNEL_H
+#ifndef VectorTreeKernel_H
+#define VectorTreeKernel_H
 
 #include "main.h"
-#include "vtKernel.h"
+#include "Kernel.h"
 
 #include <iostream>
 #include <cmath>
@@ -12,13 +12,13 @@
 using namespace std;
 using namespace Eigen;
 
-class rwKernel : public vtKernel
+class VectorTreeKernel : public Kernel
 /*
     Random walk kernel
 */
 {
     public:
-        rwKernel(Options opt);
+        VectorTreeKernel(Options opt);
         double docKernel(const Graph* graph1, const Graph* graph2);
         double docKernel(const depTree* graph1, const depTree* graph2);
 
@@ -26,4 +26,4 @@ class rwKernel : public vtKernel
         void _makeProductAdjMatrix(SparseMatrix<double, RowMajor>& adjMatrix, const Graph* graph1, const Graph* graph2);
 };
 
-#endif // RWKERNEL_H
+#endif // VectorTreeKernel_H

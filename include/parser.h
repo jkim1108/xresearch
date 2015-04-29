@@ -1,30 +1,27 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include "vtKernel.h"
-#include "bstKernel.h"
-#include "strKernel.h"
-#include "rwKernel.h"
-#include "vstKernel.h"
-#include "pstKernel.h"
-#include "bKernel.h"
+#include "Kernel.h"
+#include "CompositeKernel.h"
+#include "VectorTreeKernel.h"
+#include "ProductKernel.h"
 
 #include "main.h"
 
 using namespace std;
 
-vtKernel* kernelChooser(Options opt);
+Kernel* kernelChooser(Options opt);
 Options getOptions(string paramFile);
 std::vector<int> getIndexSet(Options opt, int dataSize);
 string getInputPath(string dataset);
 string getOutputPath(string dataset);
 
 template <typename T>
-ublas::matrix<double> getPartialKernelMatrix(vtKernel* model, std::vector<T> testset, int rowStart, int rowEnd)
+ublas::matrix<double> getPartialKernelMatrix(Kernel* model, std::vector<T> testset, int rowStart, int rowEnd)
 {
     int n = testset.size();
     int m = rowEnd - rowStart;
-    
+
     ublas::matrix<double> kernelMatrix(m, n);
 
     int finished(0), prev(0);
@@ -52,7 +49,7 @@ ublas::matrix<double> getPartialKernelMatrix(vtKernel* model, std::vector<T> tes
 
 
 template <typename T>
-ublas::matrix<double> getKernelMatrix(vtKernel* model, std::vector<T> testset)
+ublas::matrix<double> getKernelMatrix(Kernel* model, std::vector<T> testset)
 {
     int n = testset.size();
 
@@ -84,15 +81,13 @@ ublas::matrix<double> getKernelMatrix(vtKernel* model, std::vector<T> testset)
 }
 
 template <typename T>
-ublas::matrix<double> getKernelDiagonal(vtKernel* model, std::vector<T> testset)
+ublas::matrix<double> getKernelDiagonal(Kernel* model, std::vector<T> testset)
 {
     int n = testset.size();
-
-    // Grpah kernel matrix
     ublas::matrix<double> kernelMatrix(n, 1);
 
     int i;
-    //#pragma omp parallel
+    #pragma omp parallel
     for (i=0; i<n; i++)
     {
         kernelMatrix(i, 0) = model->docKernel(testset[i], testset[i]);

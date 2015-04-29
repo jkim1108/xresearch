@@ -1,10 +1,9 @@
-#include "vtKernel.h"
+#include "Kernel.h"
 #include "main.h"
 #include "parser.h"
-#include "pstKernel.h"
-#include "bstKernel.h"
-#include "rwKernel.h"
-#include "bKernel.h"
+#include "ProductKernel.h"
+#include "CompositeKernel.h"
+#include "VectorTreeKernel.h"
 #include "depTree.h"
 
 #include <iostream>
@@ -26,18 +25,14 @@ using namespace boost::numeric;
 
 int main(int argc, char* argv[])
 {
-    auto t1 = clock();
     Options opt = getOptions(argv[1]);
-    int rowStart(stoi(string(argv[2])));
-    int rowEnd(stoi(string(argv[3])));
-    
     string ipath = getInputPath(opt.dataset);
-    string opath = getOutputPath(argv[1]) + "_" + string(argv[2]) + "_" + string(argv[3]) + ".csv";
-    
+    string opath = getOutputPath(argv[1]);
+
     std::vector<string> docList({"books", "kitchen_housewares", "dvd", "electronics", "plv2"});
     bool useDoc = std::find(docList.begin(), docList.end(), opt.dataset)!=docList.end();
 
-    vtKernel* model = kernelChooser(opt);
+    Kernel* model = kernelChooser(opt);
     auto graphs = loadGraphs(ipath);
     cout << graphs.size() << endl;
 
@@ -47,12 +42,12 @@ int main(int argc, char* argv[])
         if (opt.useDT)
         {
             auto docDTs = getDocDTs(docGraphs);
-            auto kernelMatrix = getPartialKernelMatrix<std::vector<depTree*>>(model, docDTs, rowStart, rowEnd);
+            auto kernelMatrix = getKernelMatrix<std::vector<depTree*>>(model, docDTs);
             writeToCsv(kernelMatrix, opath);
         }
         else
         {
-            auto kernelMatrix = getPartialKernelMatrix<std::vector<Graph*>>(model, docGraphs, rowStart, rowEnd);
+            auto kernelMatrix = getKernelMatrix<std::vector<Graph*>>(model, docGraphs);
             writeToCsv(kernelMatrix, opath);
         }
     }
@@ -61,15 +56,13 @@ int main(int argc, char* argv[])
         if (opt.useDT)
         {
             auto dts = loadDepTree(graphs);
-            auto kernelMatrix = getPartialKernelMatrix<depTree*>(model, dts, rowStart, rowEnd);
+            auto kernelMatrix = getKernelMatrix<depTree*>(model, dts);
             writeToCsv(kernelMatrix, opath);
         }
         else
         {
-            auto kernelMatrix = getPartialKernelMatrix<Graph*>(model, graphs, rowStart, rowEnd);
+            auto kernelMatrix = getKernelMatrix<Graph*>(model, graphs);
             writeToCsv(kernelMatrix, opath);
         }
     }
-    auto t2 = clock();
-    std::cout << "finished in " << int(t2-t1)/CLOCKS_PER_SEC << " seconds" << endl;
 }

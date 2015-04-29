@@ -1,8 +1,8 @@
-#ifndef BSTKERNEL_H
-#define BSTKERNEL_H
+#ifndef CompositeKernel_H
+#define CompositeKernel_H
 
 #include "main.h"
-#include "vtKernel.h"
+#include "Kernel.h"
 #include "depTree.h"
 
 #include <iostream>
@@ -12,7 +12,7 @@
 
 using namespace Eigen;
 
-class bstKernel : public vtKernel
+class CompositeKernel : public Kernel
 /*
     Baricentric Subtree Kernel
 */
@@ -26,14 +26,13 @@ class bstKernel : public vtKernel
             int length=0;
         };
 
-        bstKernel(Options opt);
+        CompositeKernel(Options opt);
         double docKernel(const Graph* graph1, const Graph* graph2);
         double docKernel(const depTree* dt1, const depTree* dt2);
 
     protected:
-        virtual double C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre);
-        virtual double C(const depTree* dt1, const depTree* dt2, int i, int j, int l, preComputed& pre);
-        bool _useMult;
+        double C(const Graph* graph1, const Graph* graph2, unsigned int i, unsigned int j, int l, preComputed& pre);
+        double C(const depTree* dt1, const depTree* dt2, int i, int j, int l, preComputed& pre);
         inline VectorXd _updateComposition(VectorXd& vector1, VectorXd& vector2, int length)
         {
             if (length==0)
@@ -57,7 +56,9 @@ class bstKernel : public vtKernel
                 }
             }
         }
+        bool _useMult;
+        double _lambda2;
 
 };
 
-#endif // BSTKERNEL_H
+#endif // CompositeKernel_H

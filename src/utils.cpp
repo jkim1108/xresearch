@@ -1,10 +1,8 @@
 #include "main.h"
-#include "vtKernel.h"
-#include "rwKernel.h"
-#include "strKernel.h"
-#include "pstKernel.h"
-#include "bstKernel.h"
-#include "bKernel.h"
+#include "Kernel.h"
+#include "VectorTreeKernel.h"
+#include "ProductKernel.h"
+#include "CompositeKernel.h"
 
 #include <iostream>
 #include <cmath>

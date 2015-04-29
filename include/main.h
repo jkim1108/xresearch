@@ -26,13 +26,13 @@ struct Options
 {
     string dataset;
     string kernelType;
-    double lambda;
+    double lambda1;
     int maxLength;
     int dataSize;
     bool useDT;
     bool useMult;
-    double sigma;
-    double distortion;
+    double alpha;
+    double lambda2;
 };
 
 // Utility functions

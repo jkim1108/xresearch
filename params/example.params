@@ -1,0 +1,8 @@
+dataset:mpqa
+kernelType:PK
+useDT:1
+lambda1:1
+lambda2:0
+maxLength:3
+alpha:5
+useMult:0

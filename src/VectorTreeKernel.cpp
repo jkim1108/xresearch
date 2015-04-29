@@ -1,4 +1,4 @@
-#include "rwKernel.h"
+#include "VectorTreeKernel.h"
 #include <iostream>
 #include <cmath>
 #include <unordered_map>
@@ -8,11 +8,11 @@
 using namespace std;
 using namespace Eigen;
 
-rwKernel::rwKernel(Options opt) :
-                    vtKernel(opt)
+VectorTreeKernel::VectorTreeKernel(Options opt) :
+                    Kernel(opt)
                     {}
 
-void rwKernel::_makeProductAdjMatrix(SparseMatrix<double, RowMajor>& adjMatrix, const Graph* graph1, const Graph* graph2)
+void VectorTreeKernel::_makeProductAdjMatrix(SparseMatrix<double, RowMajor>& adjMatrix, const Graph* graph1, const Graph* graph2)
 /*
     Make an adjacency matrix for the product graph
 */
@@ -47,7 +47,7 @@ void rwKernel::_makeProductAdjMatrix(SparseMatrix<double, RowMajor>& adjMatrix, 
     }
 }
 
-double rwKernel::docKernel(const Graph* graph1, const Graph* graph2)
+double VectorTreeKernel::docKernel(const Graph* graph1, const Graph* graph2)
 /*
     Random walk kernel obtained from the common walks between graph1 and graph2
     using the product graph formulation
@@ -61,7 +61,7 @@ double rwKernel::docKernel(const Graph* graph1, const Graph* graph2)
     SparseMatrix<double, RowMajor> accMatrix(adjMatrix);
     int i = 0;
 
-    double sum = _lambda * adjMatrix.row(0).sum();
+    double sum = _lambda1 * adjMatrix.row(0).sum();
     while(++i<_maxLength)
     {
         accMatrix = accMatrix * adjMatrix;
@@ -71,7 +71,7 @@ double rwKernel::docKernel(const Graph* graph1, const Graph* graph2)
     return sum;
 }
 
-double rwKernel::docKernel(const depTree* graph1, const depTree* graph2)
+double VectorTreeKernel::docKernel(const depTree* graph1, const depTree* graph2)
 {
     throw std::runtime_error("No RW Kernel defined for dependency trees");
 }

@@ -1,21 +1,20 @@
-#ifndef BKERNEL_H
-#define BKERNEL_H
-
+#ifndef ProductKernel_H
+#define ProductKernel_H
 #include "main.h"
-#include "vtKernel.h"
+#include "Kernel.h"
 #include "depTree.h"
 
 #include <iostream>
 #include <cmath>
 
-class bKernel: public vtKernel
+class ProductKernel : public Kernel
 /*
     Subtree Kernel defined as the sum of products of word kernels
     rather than the sum of sums
 */
 {
     public:
-        bKernel(Options opt);
+        ProductKernel(Options opt);
         double docKernel(const Graph* graph1, const Graph* graph2);
         double docKernel(const depTree* dt1, const depTree* dt2);
 
@@ -24,4 +23,4 @@ class bKernel: public vtKernel
         double C(const depTree* dt1, const depTree* dt2, int i, int j, int l);
 };
 
-#endif // PSTKERNEL_H
+#endif // ProductKernel_H

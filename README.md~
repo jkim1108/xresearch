@@ -1,0 +1,30 @@
+README
+
+Author : Jonghoon Kim
+E-mail : john.jonghoon.kim@gmail.com
+
+-------------------------------------------------------------
+
+HOW TO USE
+
+1. Build the project using build.sh
+2. Run ./main.o PARAM_FILE
+
+-------------------------------------------------------------
+
+HOW TO WRITE PARAMETER FILES
+
+1. Put in the following parameter names and values delimited with colon(:)
+   - dataset : string -- main.o will try to find the datafiles in data/dataset
+   - useDT : int -- whether to use the dependency tree structure(1 or 0)
+   - lambda : double -- penalisation term for the phrasal length
+   - datasize
+useDT:0
+lambda:0.5
+maxLength:3
+dataSize:0
+useSent:0
+useSWN:0
+sigma1:5
+sigma2:1
+useCoSim:1

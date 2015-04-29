@@ -3,10 +3,6 @@
 #include <fstream>
 #include <string>
 
-string PATH = "/home/kim/xresearch/";
-
-// Index where the flag value changes
-
 Options getOptions(string paramFile)
 {
     cout << paramFile << std::endl;
@@ -34,27 +30,27 @@ Options getOptions(string paramFile)
         }
         else if (optionType=="useDT")
         {
-            opt.useDT = atoi(optionValue.c_str());
+            opt.useDT = stoi(optionValue);
         }
         else if (optionType=="useMult")
         {
-            opt.useMult = atoi(optionValue.c_str());
+            opt.useMult = stoi(optionValue);
         }
-        else if (optionType=="lambda")
+        else if (optionType=="lambda1")
         {
-            opt.lambda = atof(optionValue.c_str());
+            opt.lambda1 = stof(optionValue);
         }
         else if (optionType=="maxLength")
         {
-            opt.maxLength = atoi(optionValue.c_str());
+            opt.maxLength = stoi(optionValue);
         }
-        else if (optionType=="sigma")
+        else if (optionType=="alpha")
         {
-            opt.sigma = atof(optionValue.c_str());
+            opt.alpha = stof(optionValue);
         }
-        else if (optionType=="distortion")
+        else if (optionType=="lambda2")
         {
-            opt.distortion = atof(optionValue.c_str());
+            opt.lambda2 = stof(optionValue);
         }
         else if (optionType=="")
         {
@@ -71,42 +67,30 @@ Options getOptions(string paramFile)
 
 string getInputPath(string dataset)
 {
-    return PATH + "data/" + dataset + "/";
+    return "data/" + dataset + "/";
 }
 
 string getOutputPath(string filepath)
 {
     unsigned found = filepath.find_last_of("/\\");
-    return PATH + "result/" + filepath.substr(found+1);
+    return "result/" + filepath.substr(found+1);
 }
 
-vtKernel* kernelChooser(Options opt)
+Kernel* kernelChooser(Options opt)
 {
-    vtKernel* kernel;
+    Kernel* kernel;
 
-    if (opt.kernelType=="bst")
+    if (opt.kernelType=="CK")
     {
-        kernel = new bstKernel(opt);
+        kernel = new CompositeKernel(opt);
     }
-    else if (opt.kernelType=="vst")
+    else if (opt.kernelType=="PK")
     {
-        kernel = new vstKernel(opt);
+        kernel = new ProductKernel(opt);
     }
-    else if (opt.kernelType=="str")
+    else if (opt.kernelType=="VST")
     {
-        kernel = new strKernel(opt);
-    }
-    else if (opt.kernelType=="pst")
-    {
-        kernel = new pstKernel(opt);
-    }
-    else if (opt.kernelType=="rw")
-    {
-        kernel = new rwKernel(opt);
-    }
-    else if (opt.kernelType=="b")
-    {
-        kernel = new bKernel(opt);
+        kernel = new VectorTreeKernel(opt);
     }
     else
     {

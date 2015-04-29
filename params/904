@@ -1,7 +1,0 @@
-kernelType:str
-useDT:0
-lambda:1
-maxLength:1
-sigma:5
-distortion:0
-useMult:0

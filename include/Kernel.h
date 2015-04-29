@@ -1,5 +1,5 @@
-#ifndef VTKERNEL_H
-#define VTKERNEL_H
+#ifndef Kernel_H
+#define Kernel_H
 
 #include "main.h"
 #include "depTree.h"
@@ -11,18 +11,18 @@
 using namespace std;
 using namespace Eigen;
 
-class vtKernel
+class Kernel
 /*
     Wrapper for the kernels using the dependency trees
 */
 {
     public :
-        vtKernel(Options opt);
+        Kernel(Options opt);
         virtual double docKernel(const Graph* graph1, const Graph* graph2)=0;
         virtual double docKernel(const depTree* graph1, const depTree* graph2);
         double docKernel(std::vector<Graph*> doc1, std::vector<Graph*> doc2);
         double docKernel(std::vector<depTree*> doc1, std::vector<depTree*> doc2);
-        //~vtKernel();
+        //~Kernel();
 
     protected :
         inline double _wordKernel(const string& word1, const string& word2)
@@ -48,16 +48,16 @@ class vtKernel
             else
             {
                 double cosSim = emb1.dot(emb2)/(emb1.norm() * emb2.norm());
-                return std::pow(0.5*(cosSim + 1), _sigma);
+                return std::pow(0.5*(cosSim + 1), _alpha);
             }
         };
 
         double _deltaKernel(const string& word1, const string& word2);
 
         unordered_map <string, VectorXd> _embedding;
-        double _lambda;
+        double _lambda1;
         int _maxLength;
-        double _sigma;
+        double _alpha;
 };
 
-#endif // VTKERNEL_H
+#endif // Kernel_H

@@ -91,7 +91,6 @@ std::vector<Graph*> loadGraphs(string path)
                 {
                     try
                     {
-
                         index.push_back(stoi(temp));
                     }
                     catch(std::invalid_argument)
