@@ -5,11 +5,11 @@
 
 ------------------------------------------------------------------------------
 
-HOW TO USE
+HOW TO RUN
 
 1. Build the project using build.sh
 2. Run ./main.o PARAM_FILE
-3. It will write a kernel matrix file in result/PARAM_FILE(can be directly
+3. It will write a kernel matrix file in result/PARAM_FILE(it can be directly
    loaded from python numpy)
 
 ------------------------------------------------------------------------------
