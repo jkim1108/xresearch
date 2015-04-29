@@ -1,7 +1,7 @@
 
-Author : Jonghoon Kim
-E-mail : john.jonghoon.kim@gmail.com
-Date : 29/Apr/2015
+- Author : Jonghoon Kim
+- E-mail : john.jonghoon.kim@gmail.com
+- Date : 29/Apr/2015
 
 ------------------------------------------------------------------------------
 
@@ -37,5 +37,5 @@ HOW TO ADD NEW DATASETS
 5. If the new datasets have multi lines per document, add the entry 
    in the main.cpp's isDoc set
 
-# The project is suited to binary classification, when dealing with multi-class
-# put everything in .pos and write an empty .neg file
+- The project is suited to binary classification, when dealing with multi-class
+- put everything in .pos and write an empty .neg file
